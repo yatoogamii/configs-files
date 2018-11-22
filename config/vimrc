@@ -1,0 +1,57 @@
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""Command option""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+       	"set number
+	set relativenumber
+	syntax on
+	colorscheme dracula
+	set showcmd                           "Show command at bottom right
+	set mouse=a
+	set laststatus=2
+	set noshowmode
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""Remapp"""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+	map <up> <nop>
+	map <down> <nop>
+	map <left> <nop>
+	map <right> <nop>
+	imap <up> <nop>
+	imap <down> <nop>
+	imap <left> <nop>
+	imap <right> <nop>
+        
+	map ,, <esc>
+	imap ,, <esc>
+
+	map <C-N> :NERDTreeToggle<CR>
+
+
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""Plugin""""""""""""""""""""""""" 
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+ call plug#begin()        
+
+
+	Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' } " Show directories         
+	Plug 'dracula/vim', { 'as': 'dracula' }                 
+	Plug 'tpope/vim-fugitive'                               " Git plug
+	Plug 'tpope/vim-surround'                               " easy { [ ( :wq
+	Plug 'vim-airline/vim-airline'
+
+ call plug#end()
+
+
+
+
+
+
+
+
+
