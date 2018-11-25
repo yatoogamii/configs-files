@@ -44,7 +44,6 @@
 	Plug 'tpope/vim-fugitive'                               " Git plug
 	Plug 'tpope/vim-surround'                               " easy { [ ( :wq
 	Plug 'vim-airline/vim-airline'
-
  call plug#end()
 
 

@@ -128,7 +128,7 @@ prompt_git() {
     autoload -Uz vcs_info
 
     zstyle ':vcs_info:*' enable git
-    zstyle ':vcs_info:*' get-revision true '?'
+    zstyle ':vcs_info:*' get-revision true
     zstyle ':vcs_info:*' check-for-changes true
     zstyle ':vcs_info:*' stagedstr '...'
     zstyle ':vcs_info:*' unstagedstr '?'
@@ -146,7 +146,7 @@ prompt_bzr() {
         status_all=`bzr status | head -n1 | wc -m`
         revision=`bzr log | head -n2 | tail -n1 | sed 's/^revno: //'`
         if [[ $status_mod -gt 0 ]] ; then
-            prompt_segment yellow black
+            prompt_segment red black
             echo -n "bzr@"$revision "✚ "
         else
             if [[ $status_all -gt 0 ]] ; then
