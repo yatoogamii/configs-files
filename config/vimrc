@@ -10,6 +10,8 @@
 	set mouse=a
 	set laststatus=2
 	set noshowmode
+	set nocompatible
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""Remapp"""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""
@@ -44,12 +46,22 @@
 	Plug 'tpope/vim-fugitive'                               " Git plug
 	Plug 'tpope/vim-surround'                               " easy { [ ( :wq
 	Plug 'vim-airline/vim-airline'
+	Plug 'tpope/vim-repeat'
+
  call plug#end()
 
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""Others""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
 
+" source auto with each :w
+
+if has("autocmd")
+      autocmd! bufwritepost .vimrc source ~/.vimrc              
+ endif
 
 
 
