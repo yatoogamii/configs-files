@@ -1,68 +1,54 @@
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""Plugin""""""""""""""""""""""""" 
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+	 call plug#begin()        
+
+
+		Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' } " Show directories         
+		Plug 'dracula/vim', { 'as': 'dracula' }                 
+		Plug 'tpope/vim-fugitive'                               " Git plug
+		Plug 'tpope/vim-surround'                               " easy { [ ( :wq
+		Plug 'vim-airline/vim-airline'
+		Plug 'tpope/vim-repeat'
+		Plug 'mattn/emmet-vim'                                  " Html
+
+	call plug#end()
+
 """""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""Command option""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 
        	"set number
-	set relativenumber
-	syntax on
-	colorscheme dracula
-	set showcmd                           "Show command at bottom right
-	set mouse=a
-	set laststatus=2
-	set noshowmode
-	set nocompatible
+		set nocompatible
+   	set relativenumber
+   	syntax on
+   	colorscheme dracula
+   	set showcmd                           "Show command at bottom right
+   	set laststatus=2
+   	set noshowmode
+   	set tabstop =3
+   	set shiftwidth =3
+   	set softtabstop =3
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""Remapp"""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 
-	map <up> <nop>
-	map <down> <nop>
-	map <left> <nop>
-	map <right> <nop>
-	imap <up> <nop>
-	imap <down> <nop>
-	imap <left> <nop>
-	imap <right> <nop>
-        
-	map ,, <esc>
-	imap ,, <esc>
-
-	map <C-N> :NERDTreeToggle<CR>
-
-
-
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""Plugin""""""""""""""""""""""""" 
-""""""""""""""""""""""""""""""""""""""""""""""""""""
-
- call plug#begin()        
-
-
-	Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' } " Show directories         
-	Plug 'dracula/vim', { 'as': 'dracula' }                 
-	Plug 'tpope/vim-fugitive'                               " Git plug
-	Plug 'tpope/vim-surround'                               " easy { [ ( :wq
-	Plug 'vim-airline/vim-airline'
-	Plug 'tpope/vim-repeat'
-
- call plug#end()
-
+     	map <up> <nop>
+     	map <down> <nop>
+     	map <left> <nop>
+     	map <right> <nop>
+     	imap <up> <nop>
+     	imap <down> <nop>
+     	imap <left> <nop>
+     	imap <right> <nop>
+             
+     	map ,, <esc>
+     	imap ,, <esc>
+     
+     	map <C-N> :NERDTreeToggle<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""Others""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""
-
-
-
-" source auto with each :w
-
-if has("autocmd")
-      autocmd! bufwritepost .vimrc source ~/.vimrc              
- endif
-
-
-
-
