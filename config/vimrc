@@ -12,6 +12,8 @@
 		Plug 'vim-airline/vim-airline'
 		Plug 'tpope/vim-repeat'
 		Plug 'mattn/emmet-vim'                                  " Html
+		Plug 'valloric/youcompleteme'
+		Plug 'nathanaelkane/vim-indent-guides'
 
 	call plug#end()
 
@@ -24,12 +26,15 @@
    	set relativenumber
    	syntax on
    	colorscheme dracula
-   	set showcmd                           "Show command at bottom right
-   	set laststatus=2
+   	set showcmd                           "show command at bottom right
+   	set laststatus =2						     "show status line	
    	set noshowmode
-   	set tabstop =3
-   	set shiftwidth =3
-   	set softtabstop =3
+   	set tabstop =3                        "define tab = 3 space 
+   	set shiftwidth =3                     "define tab = 3 space
+   	set softtabstop =3                    "define tab = 3 space
+		set scrolloff =17						     "page down with my cursor 
+		set cursorline                        "blink cursor line
+		let &showbreak ="↳ "                  
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""Remapp"""""""""""""""""""""""""
