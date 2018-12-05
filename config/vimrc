@@ -14,8 +14,8 @@
 			Plug 'lifepillar/vim-solarized8'                        
 			Plug 'vim-airline/vim-airline-themes',
 			Plug 'tpope/vim-commentary'
-			Plug 'sirver/ultisnips'
 			Plug 'ervandew/supertab'
+			Plug 'honza/vim-snippets'
 			
 		call plug#end()
 
@@ -48,6 +48,15 @@
 		set scrolloff =19                     "page down with my cursor 
 		set cursorline                        "blink cursor line
 		let showbreak ="↳ "                  
+
+		" make YCM compatible with UltiSnips (using supertab)
+		let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+		let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+		let g:SuperTabDefaultCompletionType = '<C-n>'
+		" better key bindings for UltiSnipsExpandTrigger
+		let g:UltiSnipsExpandTrigger = "<tab>"
+		let g:UltiSnipsJumpForwardTrigger = "<tab>"
+		let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 		
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""Remapp"""""""""""""""""""""""""
