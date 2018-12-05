@@ -4,7 +4,7 @@
 
 		call plug#begin()        
 
-
+		   Plug 'valloric/youcompleteme'
 			Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' } " Show directories         
 			Plug 'tpope/vim-fugitive'                               " Git plug
 			Plug 'tpope/vim-surround'                               " easy { [ ( :wq
@@ -14,7 +14,9 @@
 			Plug 'lifepillar/vim-solarized8'                        
 			Plug 'vim-airline/vim-airline-themes',
 			Plug 'tpope/vim-commentary'
-
+			Plug 'sirver/ultisnips'
+			Plug 'ervandew/supertab'
+			
 		call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""
