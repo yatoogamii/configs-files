@@ -16,6 +16,10 @@
 			Plug 'tpope/vim-commentary'
 			Plug 'ervandew/supertab'
 			Plug 'honza/vim-snippets'
+			Plug 'sirver/ultisnips'
+			Plug 'sjl/gundo.vim'
+			Plug 'yaasita/edit-slack.vim'
+			Plug 'terryma/vim-multiple-cursors'
 			
 		call plug#end()
 
@@ -48,6 +52,9 @@
 		set scrolloff =19                     "page down with my cursor 
 		set cursorline                        "blink cursor line
 		let showbreak ="↳ "                  
+		let g:yaasita_slack_token = "xoxp-7103413046-473688393410-496635480803-2d350bdccc8a076564db7c92c1cc8898"
+		set fileencodings+=utf-8
+		set encoding=utf-8
 
 		" make YCM compatible with UltiSnips (using supertab)
 		let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
@@ -74,8 +81,8 @@
      	map ,, <esc>
      	imap ,, <esc>
      
-     	map <C-N> :NERDTreeToggle<CR>
-
+     	map <F6> :NERDTreeToggle<CR>
+		nnoremap <F5> :GundoToggle<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""Others""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""
