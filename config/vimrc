@@ -12,7 +12,7 @@
 			Plug 'tpope/vim-repeat'
 			Plug 'mattn/emmet-vim'                                  " Html
 			Plug 'lifepillar/vim-solarized8'                        
-			Plug 'vim-airline/vim-airline-themes',
+			Plug 'vim-airline/vim-airline-themes'
 			Plug 'tpope/vim-commentary'
 			Plug 'ervandew/supertab'
 			Plug 'honza/vim-snippets'
@@ -20,6 +20,7 @@
 			Plug 'sjl/gundo.vim'
 			Plug 'yaasita/edit-slack.vim'
 			Plug 'terryma/vim-multiple-cursors'
+			Plug 'ap/vim-css-color'
 			
 		call plug#end()
 
@@ -64,7 +65,12 @@
 		let g:UltiSnipsExpandTrigger = "<tab>"
 		let g:UltiSnipsJumpForwardTrigger = "<tab>"
 		let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-		
+
+		" Maintain undo history between sessions 
+		set undofile
+		" Save folder undo history
+		set undodir=~/.vim/undodir
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""Remapp"""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""
@@ -86,3 +92,4 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""Others""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""
+
