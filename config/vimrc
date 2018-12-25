@@ -18,9 +18,12 @@
 			Plug 'honza/vim-snippets'
 			Plug 'sirver/ultisnips'
 			Plug 'sjl/gundo.vim'
-			Plug 'yaasita/edit-slack.vim'
 			Plug 'terryma/vim-multiple-cursors'
 			Plug 'ap/vim-css-color'
+			Plug 'wellle/targets.vim'			
+			Plug 'junegunn/gv.vim'
+			Plug 'jiangmiao/auto-pairs'
+			Plug 'alvan/vim-closetag'
 			
 		call plug#end()
 
@@ -31,15 +34,13 @@
        	"set number
 		set nocompatible
    	set relativenumber
-		set textwidth=120
-		set linebreak
 		filetype on
    	syntax on
 		set t_Co=256
 		let g:solarized_termcolors=256
 		let g:solarized_termtrans = 1
 		set background=dark
-		colorscheme solarized8
+		colorscheme solarized8_high
 		let g:solarized_use16 = 1
    	set showcmd                           "show command at bottom right
 		let g:airline#extensions#tabline#enabled = 1
@@ -53,9 +54,11 @@
 		set scrolloff =19                     "page down with my cursor 
 		set cursorline                        "blink cursor line
 		let showbreak ="↳ "                  
-		let g:yaasita_slack_token = "xoxp-7103413046-473688393410-496635480803-2d350bdccc8a076564db7c92c1cc8898"
 		set fileencodings+=utf-8
 		set encoding=utf-8
+		if (has("termguicolors"))
+			set termguicolors
+		endif
 
 		" make YCM compatible with UltiSnips (using supertab)
 		let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
