@@ -12,11 +12,11 @@
 			Plug 'tpope/vim-repeat'
 			Plug 'mattn/emmet-vim'                                  " Html
 			Plug 'lifepillar/vim-solarized8'                        
+			Plug 'sirver/ultisnips'
 			Plug 'vim-airline/vim-airline-themes'
 			Plug 'tpope/vim-commentary'
 			Plug 'ervandew/supertab'
 			Plug 'honza/vim-snippets'
-			Plug 'sirver/ultisnips'
 			Plug 'sjl/gundo.vim'
 			Plug 'terryma/vim-multiple-cursors'
 			Plug 'ap/vim-css-color'
