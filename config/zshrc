@@ -3,6 +3,12 @@
 
 # Path to your oh-my-zsh installation.
   export ZSH="/home/elias/.oh-my-zsh"
+  export FZF_BASE=/home/elias/.fzf
+  export FZF_DEFAULT_COMMAND='rg --files --hidden --ignore-case'
+  #export FZF_DEFAULT_COMMAND='ag -l -g ""'
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+  export FZF_DEFAULT_OPTS='--height 60%'
+  export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -106,3 +112,5 @@ source $ZSH/oh-my-zsh.sh
 
 export PATH=~/.npm-global/bin:$PATH
 export VISUAL=/usr/bin/vim
+
+alias zshrc="vim .zshrc"

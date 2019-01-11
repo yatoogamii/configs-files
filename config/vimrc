@@ -25,6 +25,10 @@
 			Plug 'junegunn/gv.vim'
 			Plug 'jiangmiao/auto-pairs'
 			Plug 'alvan/vim-closetag'
+			Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }          
+			Plug 'junegunn/fzf.vim'
+			Plug 'xolox/vim-notes'
+			Plug 'xolox/vim-misc'
 			
 		call plug#end()
 
@@ -35,7 +39,7 @@
        	"set number
 		set nocompatible
    	set relativenumber
-		filetype on
+		filetype plugin on
    	syntax on
 		set t_Co=256
 		let g:solarized_termcolors=256
@@ -54,6 +58,7 @@
    	set softtabstop =3                    "define tab = 3 space
 		set scrolloff =19                     "page down with my cursor 
 		set cursorline                        "blink cursor line
+		set ignorecase
 		let showbreak ="↳ "                  
 		set fileencodings+=utf-8
 		set encoding=utf-8
@@ -93,6 +98,10 @@
      
      	map <F6> :NERDTreeToggle<CR>
 		nnoremap <F5> :GundoToggle<CR>
+
+		nnoremap <c-f> :Files<CR>
+		nnoremap <C-g> :Rg<Cr>
+		nnoremap <C-c> :Commits<Cr>
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""Others""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""
