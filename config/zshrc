@@ -4,11 +4,12 @@
 # Path to your oh-my-zsh installation.
   export ZSH="/home/elias/.oh-my-zsh"
   export FZF_BASE=/home/elias/.fzf
-  export FZF_DEFAULT_COMMAND='rg --files --hidden --ignore-case'
+  export FZF_DEFAULT_COMMAND='rg --files --hidden ' 
   #export FZF_DEFAULT_COMMAND='ag -l -g ""'
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-  export FZF_DEFAULT_OPTS='--height 60%'
+  export FZF_DEFAULT_OPTS='--height 60% --border'
   export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
+
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -107,6 +108,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 
+# Bindkey
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
