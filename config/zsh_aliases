@@ -1,3 +1,4 @@
 alias maj='sudo apt-get --yes update && sudo apt-get --yes upgrade && sudo apt-get --yes dist-upgrade'
 alias c='clear'
 alias vimrc='vim ~/.vimrc'
+alias vim='vim -p'
