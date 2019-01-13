@@ -166,9 +166,6 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-
-# Bindkey
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export PATH=~/.npm-global/bin:$PATH
