@@ -6,7 +6,6 @@
 		call plug#begin()        
 
 		   Plug 'valloric/youcompleteme'
-			Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' } " Show directories         
 			Plug 'tpope/vim-fugitive'                               " Git plug
 			Plug 'tpope/vim-surround'                               " easy { [ ( :wq
 			Plug 'vim-airline/vim-airline'
@@ -30,6 +29,7 @@
 			Plug 'xolox/vim-notes'
 			Plug 'xolox/vim-misc'
 			Plug 'ryanoasis/vim-devicons'
+			Plug 'easymotion/vim-easymotion'
 			
 		call plug#end()
 
@@ -84,6 +84,8 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""Remapp"""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""
+
+		let mapleader=","
 
      	map <up> <nop>
      	map <down> <nop>
