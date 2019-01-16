@@ -69,16 +69,10 @@
 		set fileencodings+=utf-8
 		set encoding=utf-8
 		if (has("termguicolors"))
-<<<<<<< HEAD
-        set termguicolors
-      endif
-
-=======
-			set termguicolors
-		endif
+          set termguicolors
+        endif
 		set autoread                        " scss auto refresh main.css"
 		au FocusGained,BufEnter * :silent! !
->>>>>>> 507791665f81429fe264ec05c19d00ca86becda6
 
 		" make YCM compatible with UltiSnips (using supertab)
 		let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
