@@ -30,6 +30,7 @@
 			Plug 'xolox/vim-misc'
 			Plug 'ryanoasis/vim-devicons'
 			Plug 'easymotion/vim-easymotion'
+			Plug 'mattn/webapi-vim'
 			
 		call plug#end()
 
@@ -66,6 +67,8 @@
 		if (has("termguicolors"))
 			set termguicolors
 		endif
+		set autoread                        " scss auto refresh main.css"
+		au FocusGained,BufEnter * :silent! !
 
 		" make YCM compatible with UltiSnips (using supertab)
 		let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
