@@ -30,6 +30,7 @@
 			Plug 'xolox/vim-misc'
 			Plug 'ryanoasis/vim-devicons'
 			Plug 'easymotion/vim-easymotion'
+			Plug 'shmargum/vim-sass-colors'
 			
 		call plug#end()
 
@@ -39,33 +40,37 @@
 
        	"set number
 		set nocompatible
-   	set relativenumber
-		filetype plugin on
-   	syntax on
-		set t_Co=256
+      set relativenumber
+      filetype plugin on
+      syntax on
+      set t_Co=256
 		let g:solarized_termcolors=256
 		let g:solarized_termtrans = 1
 		set background=dark
 		colorscheme solarized8_high
-		let g:solarized_use16 = 1
-   	set showcmd                           "show command at bottom right
+      let g:solarized_use16 = 1
+      set showcmd                           "show command at bottom right
 		let g:airline#extensions#tabline#enabled = 1
 		let g:airline_theme = 'solarized'
-   	set laststatus =2                     "show status line
-   	set noshowmode
+      set laststatus =2                     "show status line
+      set noshowmode
 		set incsearch
-   	set tabstop =3                        "define tab = 3 space 
-   	set shiftwidth =3                     "define tab = 3 space
-   	set softtabstop =3                    "define tab = 3 space
+      " show existing tab with 4 spaces width
+      set tabstop=4
+      " when indenting with '>', use 2 spaces width
+      set shiftwidth=2
+      " On pressing tab, insert 4 spaces
+      set expandtab
 		set scrolloff =19                     "page down with my cursor 
-		set cursorline                        "blink cursor line
+      set cursorline                        "blink cursor line
 		set ignorecase
 		let showbreak ="↳ "                  
 		set fileencodings+=utf-8
 		set encoding=utf-8
 		if (has("termguicolors"))
-			set termguicolors
-		endif
+        set termguicolors
+      endif
+
 
 		" make YCM compatible with UltiSnips (using supertab)
 		let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
