@@ -32,7 +32,7 @@
         Plug 'easymotion/vim-easymotion'
         Plug 'shmargum/vim-sass-colors'
         Plug 'mattn/webapi-vim'
-			
+        Plug 'rhysd/vim-healthcheck'	
 		call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""
@@ -94,8 +94,6 @@
 
 		let mapleader=","
 
-        map j <nop>
-        map k <nop>
 
 
      	map <up> <nop>
