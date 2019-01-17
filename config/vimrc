@@ -94,10 +94,8 @@
 
 		let mapleader=","
 
-        map h <nop>
         map j <nop>
         map k <nop>
-        map l <nop>
 
 
      	map <up> <nop>
