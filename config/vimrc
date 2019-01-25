@@ -105,8 +105,15 @@
      	imap <left> <nop>
      	imap <right> <nop>
 
+        imap hh <S-`>
+        imap uu ;
+        
+        
+
+
      	map ,, <esc>
      	imap ,, <esc>
+
      
      	map <F6> :NERDTreeToggle<CR>
 		nnoremap <F5> :GundoToggle<CR>
