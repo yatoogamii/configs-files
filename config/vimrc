@@ -105,12 +105,6 @@
      	imap <left> <nop>
      	imap <right> <nop>
 
-        imap hh <S-`>
-        imap uu ;
-        
-        
-
-
      	map ,, <esc>
      	imap ,, <esc>
 
