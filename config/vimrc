@@ -1,9 +1,9 @@
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""Plugin""""""""""""""""""""""""" 
+"""""""""""""""""""""Plugin"""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 
-		call plug#begin()        
+		call plug#begin()
 
         Plug 'valloric/youcompleteme'
         Plug 'tpope/vim-fugitive'                               " Git plug
@@ -11,7 +11,7 @@
         Plug 'vim-airline/vim-airline'
         Plug 'tpope/vim-repeat'
         Plug 'mattn/emmet-vim'                                  " Html
-        Plug 'lifepillar/vim-solarized8'                        
+        Plug 'lifepillar/vim-solarized8'
         Plug 'sirver/ultisnips'
         Plug 'vim-airline/vim-airline-themes'
         Plug 'tpope/vim-commentary'
@@ -19,11 +19,11 @@
         Plug 'sjl/gundo.vim'
         Plug 'honza/vim-snippets'
         Plug 'ap/vim-css-color'
-        Plug 'wellle/targets.vim'			
+        Plug 'wellle/targets.vim'
         Plug 'junegunn/gv.vim'
         Plug 'jiangmiao/auto-pairs'
         Plug 'alvan/vim-closetag'
-        Plug 'junegunn/fzf'          
+        Plug 'junegunn/fzf'
         Plug 'junegunn/fzf.vim'
         Plug 'xolox/vim-notes'
         Plug 'xolox/vim-misc'
@@ -31,8 +31,9 @@
         Plug 'easymotion/vim-easymotion'
         Plug 'shmargum/vim-sass-colors'
         Plug 'mattn/webapi-vim'
-        Plug 'rhysd/vim-healthcheck'	
+        Plug 'rhysd/vim-healthcheck'
         Plug 'terryma/vim-multiple-cursors'
+        Plug 'w0rp/ale'
 
 		call plug#end()
 
@@ -63,13 +64,13 @@
         set shiftwidth=2
         " On pressing tab, insert 4 spaces
         set expandtab
-        set scrolloff =19                     "page down with my cursor 
+        set scrolloff =19                     "page down with my cursor
         set cursorline                        "blink cursor line
 		set ignorecase
         set wrap
         set tw=80
         set wm=2
-		let &showbreak ="↳ "                  
+		let &showbreak ="↳ "
 		set fileencodings+=utf-8
 		set encoding=utf-8
 		if (has("termguicolors"))
@@ -87,10 +88,25 @@
 		let g:UltiSnipsJumpForwardTrigger = "<tab>"
 		let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
-		" Maintain undo history between sessions 
+		" Maintain undo history between sessions
 		set undofile
 		" Save folder undo history
 		set undodir=~/.vim/undodir
+
+    " Fix files with prettier, and then ESLint.
+    let b:ale_fixers = {'javascript': ['prettier', 'eslint']}
+
+    " In ~/.vim/vimrc, or somewhere similar.
+    let g:ale_fixers = {
+          \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+          \   'javascript': ['eslint'],
+          \}
+
+    " Set this variable to 1 to fix files when you save them.
+    let g:ale_fix_on_save = 1
+
+    " Set this. Airline will handle the rest.
+    let g:airline#extensions#ale#enabled = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""Remapp"""""""""""""""""""""""""
@@ -112,7 +128,7 @@
      	map ,, <esc>
      	imap ,, <esc>
 
-     
+
      	map <F6> :NERDTreeToggle<CR>
 		nnoremap <F5> :GundoToggle<CR>
 
