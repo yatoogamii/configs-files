@@ -33,6 +33,7 @@
         Plug 'mattn/webapi-vim'
         Plug 'rhysd/vim-healthcheck'	
         Plug 'terryma/vim-multiple-cursors'
+
 		call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""
@@ -57,7 +58,7 @@
         set noshowmode
         set incsearch
         " show existing tab with 4 spaces width
-        set tabstop=4
+        set tabstop=2
         " when indenting with '>', use 2 spaces width
         set shiftwidth=2
         " On pressing tab, insert 4 spaces
