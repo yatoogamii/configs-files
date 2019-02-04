@@ -65,7 +65,10 @@
         set scrolloff =19                     "page down with my cursor 
         set cursorline                        "blink cursor line
 		set ignorecase
-		let showbreak ="↳ "                  
+        set wrap
+        set tw=80
+        set wm=2
+		let &showbreak ="↳ "                  
 		set fileencodings+=utf-8
 		set encoding=utf-8
 		if (has("termguicolors"))
