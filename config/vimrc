@@ -93,8 +93,8 @@
 		" Save folder undo history
 		set undodir=~/.vim/undodir
 
-    " Fix files with prettier, and then ESLint.
-    let b:ale_fixers = {'javascript': ['prettier', 'eslint']}
+    " truc truc
+    let g:ale_javascript_prettier_use_local_config = 1
 
     " In ~/.vim/vimrc, or somewhere similar.
     let g:ale_fixers = {
