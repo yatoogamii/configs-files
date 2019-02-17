@@ -67,116 +67,136 @@
         set expandtab
         set scrolloff =19                     "page down with my cursor
         set cursorline                        "blink cursor line
-		set ignorecase
-        set wrap
-        set tw=80
-        set wm=2
-		let &showbreak ="↳ "
-		set fileencodings+=utf-8
-		set encoding=utf-8
-		if (has("termguicolors"))
+        set ignorecase
+        " set wrap
+        " set tw=80
+        " set wm=2
+        let &showbreak ="↳ "
+        set fileencodings+=utf-8
+        set encoding=utf-8
+        if (has("termguicolors"))
           set termguicolors
         endif
-		set autoread                        " scss auto refresh main.css"
-		au FocusGained,BufEnter * :silent! !
+        set autoread                        " scss auto refresh main.css"
+        au FocusGained,BufEnter * :silent! !
 
-		" make YCM compatible with UltiSnips (using supertab)
-		let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-		let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-		let g:SuperTabDefaultCompletionType = '<C-n>'
-		" better key bindings for UltiSnipsExpandTrigger
-		let g:UltiSnipsExpandTrigger = "<tab>"
-		let g:UltiSnipsJumpForwardTrigger = "<tab>"
-		let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+        " make YCM compatible with UltiSnips (using supertab)
+        let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+        let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+        let g:SuperTabDefaultCompletionType = '<C-n>'
+        " better key bindings for UltiSnipsExpandTrigger
+        let g:UltiSnipsExpandTrigger = "<tab>"
+        let g:UltiSnipsJumpForwardTrigger = "<tab>"
+        let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
-		" Maintain undo history between sessions
-		set undofile
-		" Save folder undo history
-		set undodir=~/.vim/undodir
+        " Maintain undo history between sessions
+        set undofile
+        " Save folder undo history
+        set undodir=~/.vim/undodir
 
-    " Fix files with prettier, and then ESLint.
-    let b:ale_fixers = {'javascript': ['prettier', 'eslint']}
+        " Fix files with prettier, and then ESLint.
+        let b:ale_fixers = {'javascript': ['prettier', 'eslint']}
 
-    " In ~/.vim/vimrc, or somewhere similar.
-    let g:ale_fixers = {
-          \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-          \   'javascript': ['eslint'],
-          \}
+        " In ~/.vim/vimrc, or somewhere similar.
+        let g:ale_fixers = {
+              \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+              \   'javascript': ['eslint'],
+              \}
 
-    " Set this variable to 1 to fix files when you save them.
-    let g:ale_fix_on_save = 1
+        " Set this variable to 1 to fix files when you save them.
+        let g:ale_fix_on_save = 1
 
-    " Set this. Airline will handle the rest.
-    let g:airline#extensions#ale#enabled = 1
+        " Set this. Airline will handle the rest.
+        let g:airline#extensions#ale#enabled = 1
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""Remapp"""""""""""""""""""""""""
-""""""""""""""""""""""""""""""""""""""""""""""""""""
+        """"""""""""""""""""""""""""""""""""""""""""""""""""
+        """""""""""""""""""""Remapp"""""""""""""""""""""""""
+        """"""""""""""""""""""""""""""""""""""""""""""""""""
 
-		let mapleader=","
-
-
-
-     	map <up> <nop>
-     	map <down> <nop>
-     	map <left> <nop>
-     	map <right> <nop>
-     	imap <up> <nop>
-     	imap <down> <nop>
-     	imap <left> <nop>
-     	imap <right> <nop>
-
-     	map ,, <esc>
-     	imap ,, <esc>
+        let mapleader=","
 
 
-     	map <F6> :NERDTreeToggle<CR>
-		nnoremap <F5> :GundoToggle<CR>
 
-		nnoremap <c-f> :Files<CR>
-		nnoremap <C-g> :Rg<Cr>
-		nnoremap <C-c> :Commits<Cr>
-""""""""""""""""""""""""""""""""""""""""""""""""""""
-""""""""""""""""""""""Others""""""""""""""""""""""""
-""""""""""""""""""""""""""""""""""""""""""""""""""""
+        map <up> <nop>
+        map <down> <nop>
+        map <left> <nop>
+        map <right> <nop>
+        imap <up> <nop>
+        imap <down> <nop>
+        imap <left> <nop>
+        imap <right> <nop>
+
+        map ,, <esc>
+        imap ,, <esc>
+        imap ² `
+
+        map <F6> :NERDTreeToggle<CR>
+        nnoremap <F5> :GundoToggle<CR>
+
+        nnoremap <c-f> :Files<CR>
+        nnoremap <C-g> :Rg<Cr>
+        nnoremap <C-c> :Commits<Cr>
+
+        " disable shortcut Auto-pairs for enable î"
+        let g:AutoPairsShortcutToggle     = 'π' " <m-p>
+        let g:AutoPairsShortcutFastWrap   = '∑' " <m-w>
+        let g:AutoPairsShortcutJump       = '∆' " <m-j>
+        let g:AutoPairsShortcutBackInsert = '∫' " <m-b>
+        let g:AutoPairsMoveCharacter = 'Ω' 
+
+        """"""""""""""""""""""""""""""""""""""""""""""""""""
+        """"""""""""""""""""""Macro""""""""""""""""""""""""
+        """"""""""""""""""""""""""""""""""""""""""""""""""""
 
 
-" Command for git grep
-" - fzf#vim#grep(command, with_column, [options], [fullscreen])
-command! -bang -nargs=* GGrep
-      \ call fzf#vim#grep(
-      \   'git grep --line-number '.shellescape(<q-args>), 0,
-      \   { 'dir': systemlist('git rev-parse --show-toplevel')[0] }, <bang>0)
+        let @s='ysiw'
 
-" Override Colors command. You can safely do this in your .vimrc as fzf.vim
-" will not override existing commands.
-command! -bang Colors
-      \ call fzf#vim#colors({'left': '15%', 'options': '--reverse --margin 30%,0'}, <bang>0)
 
-" Augmenting Ag command using fzf#vim#with_preview function
-"   * fzf#vim#with_preview([[options], [preview window], [toggle keys...]])
-"     * For syntax-highlighting, Ruby and any of the following tools are required:
-"       - Bat: https://github.com/sharkdp/bat
-"       - Highlight: http://www.andre-simon.de/doku/highlight/en/highlight.php
-"       - CodeRay: http://coderay.rubychan.de/
-"       - Rouge: https://github.com/jneen/rouge
-"
-"   :Ag  - Start fzf with hidden preview window that can be enabled with "?" key
-"   :Ag! - Start fzf in fullscreen and display the preview window above
-command! -bang -nargs=* Ag
-      \ call fzf#vim#ag(<q-args>,
-      \                 <bang>0 ? fzf#vim#with_preview('up:60%')
-      \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
-      \                 <bang>0)
 
-" Similarly, we can apply it to fzf#vim#grep. To use ripgrep instead of ag:
-command! -bang -nargs=* Rg
-      \ call fzf#vim#grep(
-      \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-      \   <bang>0 ? fzf#vim#with_preview('up:60%')
-      \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-      \   <bang>0)
 
-" Likewise, Files command with preview window
-command! -bang -nargs=? -complete=dir Files
-      \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
+
+        """"""""""""""""""""""""""""""""""""""""""""""""""""
+        """"""""""""""""""""""Others""""""""""""""""""""""""
+        """"""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+        " Command for git grep
+        " - fzf#vim#grep(command, with_column, [options], [fullscreen])
+        command! -bang -nargs=* GGrep
+              \ call fzf#vim#grep(
+              \   'git grep --line-number '.shellescape(<q-args>), 0,
+              \   { 'dir': systemlist('git rev-parse --show-toplevel')[0] }, <bang>0)
+
+        " Override Colors command. You can safely do this in your .vimrc as fzf.vim
+        " will not override existing commands.
+        command! -bang Colors
+              \ call fzf#vim#colors({'left': '15%', 'options': '--reverse --margin 30%,0'}, <bang>0)
+
+        " Augmenting Ag command using fzf#vim#with_preview function
+        "   * fzf#vim#with_preview([[options], [preview window], [toggle keys...]])
+        "     * For syntax-highlighting, Ruby and any of the following tools are required:
+        "       - Bat: https://github.com/sharkdp/bat
+        "       - Highlight: http://www.andre-simon.de/doku/highlight/en/highlight.php
+        "       - CodeRay: http://coderay.rubychan.de/
+        "       - Rouge: https://github.com/jneen/rouge
+        "
+        "   :Ag  - Start fzf with hidden preview window that can be enabled with "?" key
+        "   :Ag! - Start fzf in fullscreen and display the preview window above
+        command! -bang -nargs=* Ag
+              \ call fzf#vim#ag(<q-args>,
+              \                 <bang>0 ? fzf#vim#with_preview('up:60%')
+              \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
+              \                 <bang>0)
+
+        " Similarly, we can apply it to fzf#vim#grep. To use ripgrep instead of ag:
+        command! -bang -nargs=* Rg
+              \ call fzf#vim#grep(
+              \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+              \   <bang>0 ? fzf#vim#with_preview('up:60%')
+              \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+              \   <bang>0)
+
+        " Likewise, Files command with preview window
+        command! -bang -nargs=? -complete=dir Files
+              \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
