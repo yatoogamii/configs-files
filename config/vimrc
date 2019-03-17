@@ -29,12 +29,13 @@
         Plug 'xolox/vim-misc'
         Plug 'ryanoasis/vim-devicons'
         Plug 'easymotion/vim-easymotion'
-        Plug 'shmargum/vim-sass-colors'
+        Plug 'etdev/vim-hexcolor'
         Plug 'mattn/webapi-vim'
         Plug 'rhysd/vim-healthcheck'
         Plug 'terryma/vim-multiple-cursors'
         Plug 'w0rp/ale'
         Plug 'airblade/vim-gitgutter'
+        Plug 'metakirby5/codi.vim'
         
 		call plug#end()
 
@@ -128,7 +129,12 @@
 
         map ,, <esc>
         imap ,, <esc>
+        map ² `
         imap ² `
+
+        " Move visual selection
+        vnoremap J :m '>+1gv=gv
+        vnoremap K :m '<-2gv=gv
 
         map <F6> :NERDTreeToggle<CR>
         nnoremap <F5> :GundoToggle<CR>
