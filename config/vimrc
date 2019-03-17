@@ -33,7 +33,6 @@
         Plug 'mattn/webapi-vim'
         Plug 'rhysd/vim-healthcheck'
         Plug 'terryma/vim-multiple-cursors'
-        Plug 'w0rp/ale'
         Plug 'airblade/vim-gitgutter'
         Plug 'metakirby5/codi.vim'
         
