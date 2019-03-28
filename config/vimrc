@@ -23,9 +23,6 @@
         Plug 'junegunn/gv.vim'
         Plug 'jiangmiao/auto-pairs'
         Plug 'alvan/vim-closetag'
-        Plug 'junegunn/fzf'
-        Plug 'junegunn/fzf.vim'
-        Plug 'xolox/vim-notes'
         Plug 'xolox/vim-misc'
         Plug 'ryanoasis/vim-devicons'
         Plug 'easymotion/vim-easymotion'
@@ -34,7 +31,6 @@
         Plug 'rhysd/vim-healthcheck'
         Plug 'terryma/vim-multiple-cursors'
         Plug 'airblade/vim-gitgutter'
-        Plug 'metakirby5/codi.vim'
         
 		call plug#end()
 
