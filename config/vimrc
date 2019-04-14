@@ -31,7 +31,9 @@
         Plug 'rhysd/vim-healthcheck'
         Plug 'terryma/vim-multiple-cursors'
         Plug 'airblade/vim-gitgutter'
-        Plug 'fredkschott/covim'   " vim live-share
+        " Plug 'https://github.com/emgram769/vim-multiuser'
+        Plug 'https://github.com/AndrewRadev/splitjoin.vim' " for gJ and gS join codeblock or reverse
+        Plug 'https://github.com/AndrewRadev/sideways.vim' "for move something side left of right
         
 		call plug#end()
 
@@ -131,6 +133,10 @@
         let g:AutoPairsShortcutJump       = '∆' " <m-j>
         let g:AutoPairsShortcutBackInsert = '∫' " <m-b>
         let g:AutoPairsMoveCharacter = 'Ω' 
+
+        " remap for plugin sideways
+        nnoremap <c-h> :SidewaysLeft<cr>
+        nnoremap <c-l> :SidewaysRight<cr>
 
         """"""""""""""""""""""""""""""""""""""""""""""""""""
         """"""""""""""""""""""Macro""""""""""""""""""""""""
