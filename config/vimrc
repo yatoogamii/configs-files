@@ -31,6 +31,7 @@
         Plug 'rhysd/vim-healthcheck'
         Plug 'terryma/vim-multiple-cursors'
         Plug 'airblade/vim-gitgutter'
+        Plug 'fredkschott/covim'   " vim live-share
         
 		call plug#end()
 
