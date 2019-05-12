@@ -31,9 +31,13 @@
         Plug 'rhysd/vim-healthcheck'
         Plug 'terryma/vim-multiple-cursors'
         Plug 'airblade/vim-gitgutter'
-        " Plug 'https://github.com/emgram769/vim-multiuser'
         Plug 'https://github.com/AndrewRadev/splitjoin.vim' " for gJ and gS join codeblock or reverse
         Plug 'https://github.com/AndrewRadev/sideways.vim' "for move something side left of right
+        Plug 'posva/vim-vue'
+        Plug 'pangloss/vim-javascript'
+        Plug 'mxw/vim-jsx'
+        Plug 'w0rp/ale' " check syntax linting and fix files asynch with LSP
+
         
 		call plug#end()
 
@@ -96,6 +100,26 @@
         " Set this. Airline will handle the rest.
         let g:airline#extensions#ale#enabled = 1
 
+       " Easy window movement and creation  https://vimrcfu.com/snippet/266
+       " leader + (hh)(jj)(kk)(ll)
+        function! MoveOrCreateWindow(key) abort
+          let t:curwin = winnr()
+          exec "wincmd ".a:key
+          if (t:curwin == winnr())
+            if (match(a:key,'[jk]'))
+              wincmd v
+            else
+              wincmd s
+            endif
+            exec "wincmd ".a:key
+          endif
+        endfunction
+
+        nnoremap <silent> <Leader>hh :call MoveOrCreateWindow('h')<CR>
+        nnoremap <silent> <Leader>jj :call MoveOrCreateWindow('j')<CR>
+        nnoremap <silent> <Leader>kk :call MoveOrCreateWindow('k')<CR>
+        nnoremap <silent> <Leader>ll :call MoveOrCreateWindow('l')<CR>
+
         """"""""""""""""""""""""""""""""""""""""""""""""""""
         """""""""""""""""""""Remapp"""""""""""""""""""""""""
         """"""""""""""""""""""""""""""""""""""""""""""""""""
@@ -116,9 +140,9 @@
         map ² `
         imap ² `
 
-        " Move visual selection
-        vnoremap J :m '>+1gv=gv
-        vnoremap K :m '<-2gv=gv
+        " Move visual block
+        vnoremap J :m '>+1<CR>gv=gv
+        vnoremap K :m '<-2<CR>gv=gv
 
         map <F6> :NERDTreeToggle<CR>
         nnoremap <F5> :GundoToggle<CR>
@@ -138,19 +162,9 @@
         nnoremap <c-h> :SidewaysLeft<cr>
         nnoremap <c-l> :SidewaysRight<cr>
 
+        " indent all file and go back where started editing.
+        map <leader><leader>i mmgg=G`m
+
         """"""""""""""""""""""""""""""""""""""""""""""""""""
         """"""""""""""""""""""Macro""""""""""""""""""""""""
         """"""""""""""""""""""""""""""""""""""""""""""""""""
-
-
-        let @s='ysiw'
-
-
-
-
-
-
-        """"""""""""""""""""""""""""""""""""""""""""""""""""
-        """"""""""""""""""""""Others""""""""""""""""""""""""
-        """"""""""""""""""""""""""""""""""""""""""""""""""""
-
