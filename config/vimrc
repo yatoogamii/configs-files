@@ -37,6 +37,8 @@
         Plug 'pangloss/vim-javascript'
         Plug 'mxw/vim-jsx'
         Plug 'w0rp/ale' " check syntax linting and fix files asynch with LSP
+        Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+        Plug 'junegunn/fzf.vim'
 
         
 		call plug#end()
@@ -147,9 +149,21 @@
         map <F6> :NERDTreeToggle<CR>
         nnoremap <F5> :GundoToggle<CR>
 
+        "Fzf shortcut
+        "ctrl-t tab split
+        "ctrl-j split
+        "ctrl-k vsplit
         nnoremap <c-f> :Files<CR>
         nnoremap <C-g> :Rg<Cr>
         nnoremap <C-c> :Commits<Cr>
+        nnoremap <C-b> :Buffers<Cr>
+        nnoremap <C-l> :Lines<Cr>
+        nnoremap <C-h> :History<CR>
+        nmap <Leader>t :BTags<CR>
+        nmap <Leader>T :Tags<CR>
+        nmap <Leader>' :Marks<CR>
+        nmap <Leader>H :Helptags!<CR>
+
 
         " disable shortcut Auto-pairs for enable î"
         let g:AutoPairsShortcutToggle     = 'π' " <m-p>
