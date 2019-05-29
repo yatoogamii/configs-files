@@ -7,7 +7,9 @@ export TERM="xterm-256color"
 export ZSH="/home/elias/.oh-my-zsh"
 
 export FZF_DEFAULT_COMMAND='rg --files --hidden'
-export FZF_CTRL_T_COMMAND='$FZF_DEFAULT_COMMAND'
+export FZF_DEFAULT_OPTS="--height 80% --preview 'bat -p --color always {}'"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_CTRL_T_OPTS="$FZF_DEFAULT_OPTS"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -132,6 +134,7 @@ source $ZSH/oh-my-zsh.sh
 
 export PATH=~/.npm-global/bin:$PATH
 export VISUAL=/usr/bin/vim
+export NODE_ENV=development
 
 alias zshrc="vim ~/.zshrc"
 

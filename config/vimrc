@@ -40,9 +40,66 @@
         Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
         Plug 'junegunn/fzf.vim'
         Plug 'digitaltoad/vim-pug'
-
+        Plug 'leafgarland/typescript-vim'
         
 		call plug#end()
+
+        """"""""""""""""""""""""""""""""""""""""""""""""""""
+        """""""""""""""""""""Remapp"""""""""""""""""""""""""
+        """"""""""""""""""""""""""""""""""""""""""""""""""""
+
+        let mapleader=","
+
+        map <up> <nop>
+        map <down> <nop>
+        map <left> <nop>
+        map <right> <nop>
+        imap <up> <nop>
+        imap <down> <nop>
+        imap <left> <nop>
+        imap <right> <nop>
+
+        map ,, <esc>
+        imap ,, <esc>
+        map ² `
+        imap ² `
+
+        " Move visual block
+        vnoremap J :m '>+1<CR>gv=gv
+        vnoremap K :m '<-2<CR>gv=gv
+
+        map <F6> :NERDTreeToggle<CR>
+        nnoremap <F5> :GundoToggle<CR>
+
+        let g:fzf_action = {
+              \ 'enter': 'tab split',
+              \ 'ctrl-x': 'split',
+              \ 'ctrl-v': 'vsplit' }
+        nnoremap <c-f> :Files<CR>
+        nnoremap <C-g> :Rg<Cr>
+        nnoremap <C-c> :Commits<Cr>
+        nnoremap <C-b> :Buffers<Cr>
+        nnoremap <C-l> :Lines<Cr>
+        nnoremap <C-h> :History<CR>
+        nmap <Leader>t :BTags<CR>
+        nmap <Leader>T :Tags<CR>
+        nmap <Leader>' :Marks<CR>
+        nmap <Leader>H :Helptags!<CR>
+
+        " disable shortcut Auto-pairs for enable î"
+        let g:AutoPairsShortcutToggle     = 'π' " <m-p>
+        let g:AutoPairsShortcutFastWrap   = '∑' " <m-w>
+        let g:AutoPairsShortcutJump       = '∆' " <m-j>
+        let g:AutoPairsShortcutBackInsert = '∫' " <m-b>
+        let g:AutoPairsMoveCharacter = 'Ω' 
+
+        " remap for plugin sideways
+        nnoremap <c-h> :SidewaysLeft<cr>
+        nnoremap <c-l> :SidewaysRight<cr>
+
+        " indent all file and go back where started editing.
+        map <leader><leader>i mmgg=G`m
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""Command option""""""""""""""""""""
@@ -122,64 +179,6 @@
         nnoremap <silent> <Leader>jj :call MoveOrCreateWindow('j')<CR>
         nnoremap <silent> <Leader>kk :call MoveOrCreateWindow('k')<CR>
         nnoremap <silent> <Leader>ll :call MoveOrCreateWindow('l')<CR>
-
-        """"""""""""""""""""""""""""""""""""""""""""""""""""
-        """""""""""""""""""""Remapp"""""""""""""""""""""""""
-        """"""""""""""""""""""""""""""""""""""""""""""""""""
-
-        let mapleader=","
-
-        map <up> <nop>
-        map <down> <nop>
-        map <left> <nop>
-        map <right> <nop>
-        imap <up> <nop>
-        imap <down> <nop>
-        imap <left> <nop>
-        imap <right> <nop>
-
-        map ,, <esc>
-        imap ,, <esc>
-        map ² `
-        imap ² `
-
-        " Move visual block
-        vnoremap J :m '>+1<CR>gv=gv
-        vnoremap K :m '<-2<CR>gv=gv
-
-        map <F6> :NERDTreeToggle<CR>
-        nnoremap <F5> :GundoToggle<CR>
-
-        "Fzf shortcut
-        "ctrl-t tab split
-        "ctrl-j split
-        "ctrl-k vsplit
-        nnoremap <c-f> :Files<CR>
-        nnoremap <C-g> :Rg<Cr>
-        nnoremap <C-c> :Commits<Cr>
-        nnoremap <C-b> :Buffers<Cr>
-        nnoremap <C-l> :Lines<Cr>
-        nnoremap <C-h> :History<CR>
-        nmap <Leader>t :BTags<CR>
-        nmap <Leader>T :Tags<CR>
-        nmap <Leader>' :Marks<CR>
-        nmap <Leader>H :Helptags!<CR>
-
-
-        " disable shortcut Auto-pairs for enable î"
-        let g:AutoPairsShortcutToggle     = 'π' " <m-p>
-        let g:AutoPairsShortcutFastWrap   = '∑' " <m-w>
-        let g:AutoPairsShortcutJump       = '∆' " <m-j>
-        let g:AutoPairsShortcutBackInsert = '∫' " <m-b>
-        let g:AutoPairsMoveCharacter = 'Ω' 
-
-        " remap for plugin sideways
-        nnoremap <c-h> :SidewaysLeft<cr>
-        nnoremap <c-l> :SidewaysRight<cr>
-
-        " indent all file and go back where started editing.
-        map <leader><leader>i mmgg=G`m
-
         """"""""""""""""""""""""""""""""""""""""""""""""""""
         """"""""""""""""""""""Macro""""""""""""""""""""""""
         """"""""""""""""""""""""""""""""""""""""""""""""""""
