@@ -32,13 +32,14 @@
         Plug 'terryma/vim-multiple-cursors'
         Plug 'airblade/vim-gitgutter'
         Plug 'https://github.com/AndrewRadev/splitjoin.vim' " for gJ and gS join codeblock or reverse
-        Plug 'https://github.com/AndrewRadev/sideways.vim' "for move something side left of right
+        Plug 'https://github.com/AndrewRadev/sideways.vim' "for move something side left of right <c-l> <c-h>
         Plug 'posva/vim-vue'
         Plug 'pangloss/vim-javascript'
         Plug 'mxw/vim-jsx'
         Plug 'w0rp/ale' " check syntax linting and fix files asynch with LSP
         Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
         Plug 'junegunn/fzf.vim'
+        Plug 'digitaltoad/vim-pug'
 
         
 		call plug#end()
