@@ -41,7 +41,7 @@
         Plug 'junegunn/fzf.vim'
         Plug 'digitaltoad/vim-pug'
         Plug 'leafgarland/typescript-vim'
-        
+
 		call plug#end()
 
         """"""""""""""""""""""""""""""""""""""""""""""""""""
