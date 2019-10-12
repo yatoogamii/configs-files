@@ -11,6 +11,8 @@ export FZF_DEFAULT_OPTS="--height 80% --preview 'bat -p --color always {}'"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_OPTS="$FZF_DEFAULT_OPTS"
 
+# ctrl-f to find folder and go in
+bindkey '^F' fzf-cd-widget
 # Set name of the theme to load --- if set to "random", it will
   # load a random theme each time oh-my-zsh is loaded, in which case,
     # to know which specific one was loaded, run: echo $RANDOM_THEME
