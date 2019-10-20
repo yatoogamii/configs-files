@@ -6,12 +6,10 @@
 		call plug#begin()
 
         Plug 'valloric/youcompleteme'
-        Plug 'tpope/vim-fugitive'                               " Git plug
         Plug 'tpope/vim-surround'                               " easy { [ ( :wq
         Plug 'vim-airline/vim-airline'
         Plug 'tpope/vim-repeat'
         Plug 'mattn/emmet-vim'                                  " Html
-        Plug 'lifepillar/vim-solarized8'
         Plug 'sirver/ultisnips'
         Plug 'vim-airline/vim-airline-themes'
         Plug 'tpope/vim-commentary'
@@ -20,6 +18,7 @@
         Plug 'honza/vim-snippets'
         Plug 'ap/vim-css-color'
         Plug 'wellle/targets.vim'
+        Plug 'chriskempson/base16-vim'
         Plug 'junegunn/gv.vim'
         Plug 'jiangmiao/auto-pairs'
         Plug 'alvan/vim-closetag'
@@ -33,14 +32,20 @@
         Plug 'airblade/vim-gitgutter'
         Plug 'https://github.com/AndrewRadev/splitjoin.vim' " for gJ and gS join codeblock or reverse
         Plug 'https://github.com/AndrewRadev/sideways.vim' "for move something side left of right <c-l> <c-h>
-        Plug 'posva/vim-vue'
         Plug 'pangloss/vim-javascript'
         Plug 'mxw/vim-jsx'
         Plug 'w0rp/ale' " check syntax linting and fix files asynch with LSP
         Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
         Plug 'junegunn/fzf.vim'
-        Plug 'digitaltoad/vim-pug'
         Plug 'leafgarland/typescript-vim'
+        Plug 'peitalin/vim-jsx-typescript'
+        Plug 'moll/vim-node'
+        Plug 'othree/yajs.vim'
+        Plug 'othree/javascript-libraries-syntax.vim'
+        Plug 'kien/rainbow_parentheses.vim'
+        Plug 'dart-lang/dart-vim-plugin'
+        Plug 'thosakwe/vim-flutter'
+        Plug 'pseewald/vim-anyfold'
 
 		call plug#end()
 
@@ -61,15 +66,8 @@
 
         map ,, <esc>
         imap ,, <esc>
-        map ² `
-        imap ² `
 
-        " Move visual block
-        vnoremap J :m '>+1<CR>gv=gv
-        vnoremap K :m '<-2<CR>gv=gv
-
-        map <F6> :NERDTreeToggle<CR>
-        nnoremap <F5> :GundoToggle<CR>
+        noremap <C-t> <C-]>
 
         let g:fzf_action = {
               \ 'enter': 'tab split',
@@ -93,10 +91,6 @@
         let g:AutoPairsShortcutBackInsert = '∫' " <m-b>
         let g:AutoPairsMoveCharacter = 'Ω' 
 
-        " remap for plugin sideways
-        nnoremap <c-h> :SidewaysLeft<cr>
-        nnoremap <c-l> :SidewaysRight<cr>
-
         " indent all file and go back where started editing.
         map <leader><leader>i mmgg=G`m
 
@@ -111,15 +105,13 @@
         filetype plugin on
         syntax on
         set t_Co=256
-        let g:solarized_termcolors=256
-        let g:solarized_termtrans = 1
         set background=dark
-        colorscheme solarized8_high
-        let g:solarized_use16 = 1
+        colorscheme base16-default-dark
         set showcmd                           "show command at bottom right
-        let g:airline#extensions#tabline#enabled = 1
-        let g:airline_theme = 'solarized'
-        set laststatus =2                     "show status line
+        let g:airline#extensions#tabline#enabled=1
+        let g:airline_powerline_fonts = 1
+        let g:airline_theme='deus'
+        set laststatus=2                     "show status line
         set noshowmode
         set incsearch
         " show existing tab with 4 spaces width
@@ -128,7 +120,7 @@
         set shiftwidth=2
         " On pressing tab, insert 4 spaces
         set expandtab
-        set scrolloff =19                     "page down with my cursor
+        set scrolloff=19                     "page down with my cursor
         set cursorline                        "blink cursor line
         set ignorecase
         " set wrap
@@ -142,6 +134,9 @@
         endif
         set autoread                        " scss auto refresh main.css"
         au FocusGained,BufEnter * :silent! !
+        set wildignore+=*.pdf,*.o,*.obj,*.jpg,*.png,*.class
+        " let g:UltiSnipsSnippetsDir="~/.vim/my-snippets"
+        let g:UltiSnipsSnippetDirectories=["UltiSnips", "my-snippets"]
 
         " make YCM compatible with UltiSnips (using supertab)
         let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
@@ -179,6 +174,72 @@
         nnoremap <silent> <Leader>jj :call MoveOrCreateWindow('j')<CR>
         nnoremap <silent> <Leader>kk :call MoveOrCreateWindow('k')<CR>
         nnoremap <silent> <Leader>ll :call MoveOrCreateWindow('l')<CR>
+
+        let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
+
+        let g:rbpt_colorpairs = [
+            \ ['brown',       'RoyalBlue3'],
+            \ ['Darkblue',    'SeaGreen3'],
+            \ ['darkgray',    'DarkOrchid3'],
+            \ ['darkgreen',   'firebrick3'],
+            \ ['darkcyan',    'RoyalBlue3'],
+            \ ['darkred',     'SeaGreen3'],
+            \ ['darkmagenta', 'DarkOrchid3'],
+            \ ['brown',       'firebrick3'],
+            \ ['gray',        'RoyalBlue3'],
+            \ ['black',       'SeaGreen3'],
+            \ ['darkmagenta', 'DarkOrchid3'],
+            \ ['Darkblue',    'firebrick3'],
+            \ ['darkgreen',   'RoyalBlue3'],
+            \ ['darkcyan',    'SeaGreen3'],
+            \ ['darkred',     'DarkOrchid3'],
+            \ ['red',         'firebrick3'],
+            \ ]
+
+        let g:rbpt_loadcmd_toggle = 0
+
+        au VimEnter * RainbowParenthesesToggle
+        au Syntax * RainbowParenthesesLoadRound
+        au Syntax * RainbowParenthesesLoadSquare
+        au Syntax * RainbowParenthesesLoadBraces
+
+        " Typescript
+        
+        " set filetypes as typescript.tsx
+        autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
+
+        " dark red
+        hi tsxTagName guifg=#E06C75
+
+        " orange
+        hi tsxCloseString guifg=#F99575
+        hi tsxCloseTag guifg=#F99575
+        hi tsxAttributeBraces guifg=#F99575
+        hi tsxEqual guifg=#F99575
+        
+        " yellow
+        hi tsxAttrib guifg=#F8BD7F cterm=italic"
+
+        " light-grey
+        hi tsxTypeBraces guifg=#999999
+        " dark-grey
+        hi tsxTypes guifg=#666666"
+
+        hi ReactState guifg=#C176A7
+        hi ReactProps guifg=#D19A66
+        hi Events ctermfg=204 guifg=#56B6C2
+        hi ReduxKeywords ctermfg=204 guifg=#C678DD
+        hi WebBrowser ctermfg=204 guifg=#56B6C2
+        hi ReactLifeCycleMethods ctermfg=204 guifg=#D19A66
+
+        "-- FOLDING --
+        filetype plugin indent on " required
+        autocmd Filetype * AnyFoldActivate               " activate for all filetypes
+
+        " set foldlevel=0  " close all folds
+        " or
+        set foldlevel=99 " Open all folds
+
         """"""""""""""""""""""""""""""""""""""""""""""""""""
         """"""""""""""""""""""Macro""""""""""""""""""""""""
         """"""""""""""""""""""""""""""""""""""""""""""""""""
