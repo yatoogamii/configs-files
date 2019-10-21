@@ -102,6 +102,8 @@
        	"set number
         set nocompatible
         set relativenumber
+        " without i cant delete with backspace
+        set backspace=indent,eol,start
         filetype plugin on
         syntax on
         set t_Co=256
