@@ -34,16 +34,22 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'easymotion/vim-easymotion'
 " change into {} ()
 Plug 'wellle/targets.vim'
-" Syntax checker
-" Plug 'vim-syntastic/syntastic'
-" Typescript
-" Plug 'Quramy/tsuquyomi'
-" LSP Linting, Fixing 
-Plug 'dense-analysis/ale'
-" Auto format
-Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 " preview markdown
 Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
+" lsp typescript
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'ryanolsonx/vim-lsp-typescript'
+" Ale
+Plug 'dense-analysis/ale'
+" Prettier
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+" color syntax with jsx
+Plug 'mxw/vim-jsx'
+"  Vue plug
+Plug 'posva/vim-vue'
+" Rust
+Plug 'rust-lang/rust.vim'
 
 call plug#end()
 
@@ -164,6 +170,8 @@ set encoding=utf-8
 set undofile
 " Save folder undo history
 set undodir=~/.vim/undodir
+" fix parcel refresh bug
+set backupcopy=yes
 
 """""""""""""""""""""""
 """ theme and color """
@@ -201,26 +209,19 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:UltiSnipsEditSplit="vertical"
 
 """""""""""""""""""""""
-"""""" syntastic """"""
+"""""""" LSP """"""""""
 """""""""""""""""""""""
 
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_check_on_wq = 0
-
-" let g:syntastic_js_checkers = ['eslint']
-" let g:syntastic_typescript_checkers = ['tsuquyomi'] " You shouldn't use 'tsc' checker.
+let g:lsp_diagnostics_enabled = 0
 
 """""""""""""""""""""""
-"""""" tsuquyomi """"""
+"""""""" Ale """"""""""
 """""""""""""""""""""""
 
-" let g:tsuquyomi_disable_quickfix = 1
+let g:ale_fixers = {
+\   'javascript': ['prettier', 'eslint'],
+\   'typescript': ['prettier', 'tsserver'],
+\}
 
 """""""""""""""""""""""
 """""" prettier """""""
@@ -228,9 +229,13 @@ let g:UltiSnipsEditSplit="vertical"
 
 let g:prettier#autoformat = 1
 let g:prettier#autoformat_require_pragma = 0
+" dont open bottom window when parser error triggered
+" let g:prettier#quickfix_enabled = 0
+
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.vue,*.yaml,*.html PrettierAsync
 
 """""""""""""""""""""""
-""""""""" ale """""""""
+"""""""" rust """""""""
 """""""""""""""""""""""
 
-let b:ale_fixers = {'javascript': ['prettier', 'jslint']}
+let g:rustfmt_autosave = 1
