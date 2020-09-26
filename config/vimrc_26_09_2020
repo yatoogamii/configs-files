@@ -46,10 +46,6 @@ Plug 'dense-analysis/ale'
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 " color syntax with jsx
 Plug 'mxw/vim-jsx'
-"  Vue plug
-Plug 'posva/vim-vue'
-" Rust
-Plug 'rust-lang/rust.vim'
 
 call plug#end()
 
@@ -208,6 +204,9 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 
+" close top preview with informations of methods etc..
+let g:ycm_autoclose_preview_window_after_insertion = 1
+
 """""""""""""""""""""""
 """""""" LSP """"""""""
 """""""""""""""""""""""
@@ -218,9 +217,11 @@ let g:lsp_diagnostics_enabled = 0
 """""""" Ale """"""""""
 """""""""""""""""""""""
 
+nnoremap gd :ALEGoToDefinition<CR>
+nnoremap gf :ALEGoToDefinition -tab<CR>
 let g:ale_fixers = {
 \   'javascript': ['prettier', 'eslint'],
-\   'typescript': ['prettier', 'tsserver'],
+\   'typescript': ['prettier', 'eslint'],
 \}
 
 """""""""""""""""""""""
@@ -239,3 +240,6 @@ autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.gra
 """""""""""""""""""""""
 
 let g:rustfmt_autosave = 1
+nnoremap <silent> <Leader>cr :Cargo run<CR>
+nnoremap <silent> <Leader>cc :Cargo check<CR>
+nnoremap <silent> <Leader>cb :Cargo build<CR>
