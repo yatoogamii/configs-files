@@ -156,8 +156,8 @@ let g:vim_json_conceal=0
 inoremap <expr> <down> pumvisible() ? "\<C-n>" : "\<down>"
 inoremap <expr> <up> pumvisible() ? "\<C-p>" : "\<up>"
 
-" expend snipper with Enter
-inoremap <silent><expr> <TAB> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" expend snipper with TAB
+inoremap <silent><expr> <TAB> pumvisible() ? coc#_select_confirm() : "<TAB>"
 
 " Use <C-j> for jump to next placeholder, it's default of coc.nvim
 let g:coc_snippet_next = '<TAB>'
