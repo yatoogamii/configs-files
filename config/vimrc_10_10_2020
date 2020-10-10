@@ -3,31 +3,22 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 
 call plug#begin()
+"""""""""""""
+"""" MISC """
+"""""""""""""
+
 " surround word or line with what you want
 Plug 'tpope/vim-surround'
 " use dot '.' for repeat last action
 Plug 'tpope/vim-repeat'
 " snippets html / css tringer with ctrl+y+,
 Plug 'mattn/emmet-vim'
-" theme
-" Plug 'dikiaap/minimalist'
-Plug 'morhetz/gruvbox'
-Plug 'vim-airline/vim-airline'
-" fuzzy finder
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
 " comment vim
 Plug 'tpope/vim-commentary'
 " auto pairs with ' " ( { [
 Plug 'jiangmiao/auto-pairs'
 " replace space by dot ( . )
 Plug 'Yggdroot/indentLine'
-" snippet engine
-Plug 'SirVer/ultisnips'
-" snippets
-Plug 'honza/vim-snippets'
-" window with snippets in
-Plug 'ycm-core/YouCompleteMe'
 " multi cursor
 Plug 'terryma/vim-multiple-cursors'
 " easy motions
@@ -36,15 +27,57 @@ Plug 'easymotion/vim-easymotion'
 Plug 'wellle/targets.vim'
 " preview markdown
 Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
-" lsp typescript
-Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
-" Ale
-Plug 'dense-analysis/ale'
 " Prettier
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 " color syntax with jsx
 Plug 'mxw/vim-jsx'
+
+"""""""""""""
+""" THEME """
+"""""""""""""
+
+" Plug 'dikiaap/minimalist'
+Plug 'morhetz/gruvbox'
+Plug 'vim-airline/vim-airline'
+
+"""""""""""""
+"""" FZF """"
+"""""""""""""
+
+" fuzzy finder
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+
+""""""""""""""""""
+"""" Snippet """""
+""""""""""""""""""
+
+" snippet engine
+Plug 'SirVer/ultisnips'
+" repos with all snippets i use. (snimMate and ultisnips)
+Plug 'honza/vim-snippets'
+" window with snippets in
+Plug 'ycm-core/YouCompleteMe'
+
+"""""""""""""""""""""
+"""" Typescript """""
+"""""""""""""""""""""
+
+" lsp typescript
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
+
+""""""""""""""
+"""" Ale """""
+""""""""""""""
+
+" Check syntax in Vim asynchronously and fix files, with Language Server Protocol (LSP) support
+Plug 'dense-analysis/ale'
+
+"""""""""""""""
+"""" Rust """""
+"""""""""""""""
+
 " rust
 Plug 'rust-lang/rust.vim'
 
@@ -190,28 +223,66 @@ let g:indentLine_char = '·'
 let g:vim_json_conceal=0
 
 """""""""""""""""""""""
-"""""" Snippets """""""
+"""""" Ultisnips """"""
 """""""""""""""""""""""
 
-" make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
-
-" close top preview with informations of methods etc..
-let g:ycm_autoclose_preview_window_after_insertion = 1
-
 """""""""""""""""""""""
 """ YouCompleteme """""
 """""""""""""""""""""""
 
+" make YCM compatible with UltiSnips
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+
+" close top preview with informations of methods etc..
+let g:ycm_autoclose_preview_window_after_insertion = 1
+
+" popup with documentation 
+au! CursorHold *.[ch] ++nested call PreviewWord()
+func PreviewWord()
+  if &previewwindow                  " don't do this in the preview window
+    return
+  endif
+  let w = expand("<cword>")          " get the word under cursor
+  if w =~ '\a'                       " if the word contains a letter
+
+    " Delete any existing highlight before showing another tag
+    silent! wincmd P                 " jump to preview window
+    if &previewwindow                        " if we really get there...                                                                                                                   
+      match none                     " delete existing highlight
+      wincmd p                       " back to old window
+    endif
+
+    " Try displaying a matching tag for the word under the cursor
+    try
+      exe "ptag " . w
+    catch
+      return
+    endtry
+
+    silent! wincmd P                 " jump to preview window
+    if &previewwindow                " if we really get there...
+      if has("folding")
+        silent! .foldopen            " don't want a closed fold
+      endif
+      call search("$", "b")          " to end of previous line
+      let w = substitute(w, '\\', '\\\\', "")                                                                                                                                              
+      call search('\<\V' . w . '\>') " position cursor on match
+      " Add a match highlight to the word at this position
+      hi previewWord term=bold ctermbg=green guibg=green
+      exe 'match previewWord "\%' . line(".") . 'l\%' . col(".") . 'c\k*"'
+      wincmd p                       " back to old window
+    endif
+  endif
+endfun
+
+" delay of popup
+set updatetime=500
 """""""""""""""""""""""
 """""""" LSP """"""""""
 """""""""""""""""""""""
@@ -225,9 +296,9 @@ let g:lsp_diagnostics_enabled = 0
 nnoremap gd :ALEGoToDefinition<CR>
 nnoremap gf :ALEGoToDefinition -tab<CR>
 let g:ale_fixers = {
-\   'javascript': ['prettier', 'eslint'],
-\   'typescript': ['prettier', 'eslint'],
-\}
+      \   'javascript': ['prettier', 'eslint'],
+      \   'typescript': ['prettier', 'eslint'],
+      \}
 
 
 """""""""""""""""""""""
@@ -235,7 +306,7 @@ let g:ale_fixers = {
 """""""""""""""""""""""
 
 " set filetypes as typescript.tsx
-autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
+autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
 
 """""""""""""""""""""""
 """"" React Color """""
