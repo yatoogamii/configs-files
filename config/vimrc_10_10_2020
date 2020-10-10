@@ -107,43 +107,6 @@ imap ,, <esc>
 " indent all file and go back where started editing.
 map <leader><leader>i mmgg=G`m
 
-"""""""""""""
-"""" FZF """"
-"""""""""""""
-let g:fzf_action = {
-      \ 'enter': 'tab split',
-      \ 'ctrl-x': 'split',
-      \ 'ctrl-v': 'vsplit' }
-nnoremap <c-f> :Files<CR>
-nnoremap <C-g> :Rg<Cr>
-nnoremap <C-c> :Commits<Cr>
-nnoremap <C-b> :Buffers<Cr>
-nnoremap <C-l> :Lines<Cr>
-nnoremap <C-h> :History<CR>
-nmap <Leader>t :BTags<CR>
-nmap <Leader>T :Tags<CR>
-nmap <Leader>' :Marks<CR>
-nmap <Leader>H :Helptags!<CR>
-
-" [Tags] Command to generate tags file
-let g:fzf_tags_command = 'ctags -R'
-
-" Customize fzf colors to match your color scheme
-let g:fzf_colors =
-      \ { 'fg':      ['fg', 'Normal'],
-      \ 'bg':      ['bg', 'Normal'],
-      \ 'hl':      ['fg', 'Comment'],
-      \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-      \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-      \ 'hl+':     ['fg', 'Statement'],
-      \ 'info':    ['fg', 'PreProc'],
-      \ 'border':  ['fg', 'Ignore'],
-      \ 'prompt':  ['fg', 'Conditional'],
-      \ 'pointer': ['fg', 'Exception'],
-      \ 'marker':  ['fg', 'Keyword'],
-      \ 'spinner': ['fg', 'Label'],
-      \ 'header':  ['fg', 'Comment'] }
-
 " Easy window movement and creation  https://vimrcfu.com/snippet/266
 " leader + (hh)(jj)(kk)(ll)
 function! MoveOrCreateWindow(key) abort
@@ -163,6 +126,7 @@ nnoremap <silent> <Leader>hh :call MoveOrCreateWindow('h')<CR>
 nnoremap <silent> <Leader>jj :call MoveOrCreateWindow('j')<CR>
 nnoremap <silent> <Leader>kk :call MoveOrCreateWindow('k')<CR>
 nnoremap <silent> <Leader>ll :call MoveOrCreateWindow('l')<CR>
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""Command option""""""""""""""""""""
@@ -221,6 +185,19 @@ let g:airline#extensions#tabline#enabled = 1
 let g:indentLine_char = '·'
 "enable quote into json file
 let g:vim_json_conceal=0
+
+"""""""""""""
+"""" FZF """"
+"""""""""""""
+let g:fzf_action = {
+      \ 'enter': 'tab split',
+      \ 'ctrl-x': 'split',
+      \ 'ctrl-v': 'vsplit' }
+nnoremap <c-f> :Files<CR>
+nnoremap <C-g> :Rg<Cr>
+nnoremap <C-c> :Commits<Cr>
+nnoremap <C-b> :Buffers<Cr>
+nnoremap <C-l> :Lines<Cr>
 
 """""""""""""""""""""""
 """""" Ultisnips """"""
@@ -283,6 +260,7 @@ endfun
 
 " delay of popup
 set updatetime=500
+
 """""""""""""""""""""""
 """""""" LSP """"""""""
 """""""""""""""""""""""
