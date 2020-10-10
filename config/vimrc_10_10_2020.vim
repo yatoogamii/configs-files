@@ -45,6 +45,8 @@ Plug 'dense-analysis/ale'
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 " color syntax with jsx
 Plug 'mxw/vim-jsx'
+" rust
+Plug 'rust-lang/rust.vim'
 
 call plug#end()
 
@@ -207,6 +209,10 @@ let g:UltiSnipsEditSplit="vertical"
 let g:ycm_autoclose_preview_window_after_insertion = 1
 
 """""""""""""""""""""""
+""" YouCompleteme """""
+"""""""""""""""""""""""
+
+"""""""""""""""""""""""
 """""""" LSP """"""""""
 """""""""""""""""""""""
 
@@ -274,3 +280,13 @@ let g:prettier#autoformat_require_pragma = 0
 " let g:prettier#quickfix_enabled = 0
 
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.vue,*.yaml,*.html PrettierAsync
+
+"""""""""""""""""""""""
+""""""" rust """"""""""
+"""""""""""""""""""""""
+
+" let g:rustfmt_autosave = 0
+
+nnoremap <silent> <Leader>cr :Cargo run<CR>
+nnoremap <silent> <Leader>cc :Cargo check<CR>
+nnoremap <silent> <Leader>cb :Cargo build<CR>
