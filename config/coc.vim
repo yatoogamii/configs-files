@@ -3,13 +3,10 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 
 call plug#begin()
+"""""""""""""
+"""" MISC """
+"""""""""""""
 
-" theme
-Plug 'morhetz/gruvbox'
-Plug 'vim-airline/vim-airline'
-" fuzzy finder
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
 " surround word or line with what you want
 Plug 'tpope/vim-surround'
 " use dot '.' for repeat last action
@@ -23,17 +20,37 @@ Plug 'jiangmiao/auto-pairs'
 " replace space by dot ( . )
 Plug 'Yggdroot/indentLine'
 " multi cursor
-Plug 'terryma/vim-multiple-cursors'
+Plug 'mg979/vim-visual-multi'
 " easy motions
 Plug 'easymotion/vim-easymotion'
 " change into {} ()
 Plug 'wellle/targets.vim'
-" snippets
-Plug 'honza/vim-snippets'
-" Prettier                                                                                                                                                                                
+" preview markdown
+Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
+" Prettier
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-" coc vim
-" Use release branch (recommend)
+" color syntax with jsx
+Plug 'mxw/vim-jsx'
+
+"""""""""""""
+""" THEME """
+"""""""""""""
+
+" Plug 'dikiaap/minimalist'
+Plug 'morhetz/gruvbox'
+Plug 'vim-airline/vim-airline'
+
+"""""""""""""
+"""" FZF """"
+"""""""""""""
+
+" fuzzy finder
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+
+"""""""""""""""
+"""" COC """"""
+"""""""""""""""
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
@@ -62,16 +79,6 @@ imap ,, <esc>
 " indent all file and go back where started editing.
 map <leader><leader>i mmgg=G`m
 
-"""""""""""""
-"""" FZF """"
-"""""""""""""
-let g:fzf_action = {
-      \ 'enter': 'tab split',
-      \ 'ctrl-x': 'split',
-      \ 'ctrl-v': 'vsplit' }
-
-nnoremap <c-f> :Files<CR>
-
 " Easy window movement and creation  https://vimrcfu.com/snippet/266
 " leader + (hh)(jj)(kk)(ll)
 function! MoveOrCreateWindow(key) abort
@@ -92,6 +99,7 @@ nnoremap <silent> <Leader>jj :call MoveOrCreateWindow('j')<CR>
 nnoremap <silent> <Leader>kk :call MoveOrCreateWindow('k')<CR>
 nnoremap <silent> <Leader>ll :call MoveOrCreateWindow('l')<CR>
 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""Command option""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""
@@ -100,7 +108,7 @@ nnoremap <silent> <Leader>ll :call MoveOrCreateWindow('l')<CR>
 set nocompatible
 set relativenumber
 syntax on
-" without i cant delete with space
+" without I cant delete with space
 set backspace=indent,eol,start
 " Any options that are defined for a filetype will be set with ':set'
 filetype plugin on
@@ -141,48 +149,76 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 
 """""""""""""""""""""""
-""""" indentLine  """""                                                                                                                                                                   
+""""" indentLine  """""
 """""""""""""""""""""""
 
 let g:indentLine_char = '·'
 "enable quote into json file
 let g:vim_json_conceal=0
 
+"""""""""""""
+"""" FZF """"
+"""""""""""""
+let g:fzf_action = {
+      \ 'enter': 'tab split',
+      \ 'ctrl-x': 'split',
+      \ 'ctrl-v': 'vsplit' }
+nnoremap <c-f> :Files<CR>
+nnoremap <C-g> :Rg<Cr>
+nnoremap <C-c> :Commits<Cr>
+nnoremap <C-b> :Buffers<Cr>
+nnoremap <C-l> :Lines<Cr>
+
 """""""""""""""""""""""
-"""""""" coc """"""""""
+""""" React Color """""
 """""""""""""""""""""""
 
-" move up and down into snippet list
-inoremap <expr> <down> pumvisible() ? "\<C-n>" : "\<down>"
-inoremap <expr> <up> pumvisible() ? "\<C-p>" : "\<up>"
+" dark red
+" hi tsxTagName guifg=#E06C75
+" hi tsxComponentName guifg=#E06C75
+" hi tsxCloseComponentName guifg=#E06C75
 
-" expend snipper with TAB
-inoremap <silent><expr> <TAB> pumvisible() ? coc#_select_confirm() : "<TAB>"
+" orange
+" hi tsxCloseString guifg=#F99575
+" hi tsxCloseTag guifg=#F99575
+" hi tsxCloseTagName guifg=#F99575
+" hi tsxAttributeBraces guifg=#F99575
+" hi tsxEqual guifg=#F99575
 
-" Use <C-j> for jump to next placeholder, it's default of coc.nvim
-let g:coc_snippet_next = '<TAB>'
+" yellow
+" hi tsxAttrib guifg=#F8BD7F cterm=italic
 
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+" light-grey
+" hi tsxTypeBraces guifg=#999999
+" dark-grey
+" hi tsxTypes guifg=#666666
 
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+" hi ReactState guifg=#C176A7
+" hi ReactProps guifg=#D19A66
+" hi ApolloGraphQL guifg=#CB886B
+" hi Events ctermfg=204 guifg=#56B6C2
+" hi ReduxKeywords ctermfg=204 guifg=#C678DD
+" hi ReduxHooksKeywords ctermfg=204 guifg=#C176A7
+" hi WebBrowser ctermfg=204 guifg=#56B6C2
+" hi ReactLifeCycleMethods ctermfg=204 guifg=#D19A66
 
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocActionAsync('doHover')
-  endif
-endfunction
+"""""""""""""""""""""""
+"""""" prettier """""""
+"""""""""""""""""""""""
 
-" Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
+let g:prettier#autoformat = 1
+let g:prettier#autoformat_require_pragma = 0
+" dont open bottom window when parser error triggered
+" let g:prettier#quickfix_enabled = 0
 
-" Add (Neo)Vim's native statusline support.
-" NOTE: Please see `:h coc-status` for integrations with external plugins that
-" provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.vue,*.yaml,*.html PrettierAsync
+
+"""""""""""""""""""""""
+""""""" rust """"""""""
+"""""""""""""""""""""""
+
+let g:rustfmt_autosave = 1
+
+nnoremap <silent> <Leader>cr :Cargo run<CR>
+nnoremap <silent> <Leader>cc :Cargo check<CR>
+nnoremap <silent> <Leader>cb :Cargo build<CR>

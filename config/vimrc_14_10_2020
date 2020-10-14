@@ -20,7 +20,7 @@ Plug 'jiangmiao/auto-pairs'
 " replace space by dot ( . )
 Plug 'Yggdroot/indentLine'
 " multi cursor
-Plug 'terryma/vim-multiple-cursors'
+Plug 'mg979/vim-visual-multi'
 " easy motions
 Plug 'easymotion/vim-easymotion'
 " change into {} ()
@@ -164,8 +164,6 @@ set encoding=utf-8
 set undofile
 " Save folder undo history
 set undodir=~/.vim/undodir
-" fix parcel refresh bug
-set backupcopy=yes
 
 """""""""""""""""""""""
 """ theme and color """
@@ -209,6 +207,33 @@ let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 """""""""""""""""""""""
+"""""""" LSP """"""""""
+"""""""""""""""""""""""
+
+let g:lsp_diagnostics_enabled = 0
+
+"""""""""""""""""""""""
+"""""""" Ale """"""""""
+"""""""""""""""""""""""
+
+nnoremap gd :ALEGoToDefinition<CR>
+nnoremap gf :ALEGoToDefinition -tab<CR>
+
+let g:ale_completion_enabled = 1
+let g:ale_completion_autoimport = 1
+
+let g:ale_fixers = {
+      \   'javascript': ['prettier', 'eslint'],
+      \   'typescript': ['prettier', 'eslint'],
+      \   'rust': ['rustfmt'],
+      \}
+let g:ale_linters = {
+      \   'javascript': ['eslint', 'tsserver'],
+      \   'typescript': ['eslint', 'tsserver'],
+      \   'rust': ['rls'],
+      \}
+
+"""""""""""""""""""""""
 """ YouCompleteme """""
 """""""""""""""""""""""
 
@@ -218,6 +243,7 @@ let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 
 " close top preview with informations of methods etc..
 let g:ycm_autoclose_preview_window_after_insertion = 1
+
 
 " popup with documentation 
 au! CursorHold *.[ch] ++nested call PreviewWord()
@@ -260,24 +286,6 @@ endfun
 
 " delay of popup
 set updatetime=500
-
-"""""""""""""""""""""""
-"""""""" LSP """"""""""
-"""""""""""""""""""""""
-
-let g:lsp_diagnostics_enabled = 0
-
-"""""""""""""""""""""""
-"""""""" Ale """"""""""
-"""""""""""""""""""""""
-
-nnoremap gd :ALEGoToDefinition<CR>
-nnoremap gf :ALEGoToDefinition -tab<CR>
-let g:ale_fixers = {
-      \   'javascript': ['prettier', 'eslint'],
-      \   'typescript': ['prettier', 'eslint'],
-      \}
-
 
 """""""""""""""""""""""
 """"" typescript """"""
@@ -334,7 +342,7 @@ autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.gra
 """"""" rust """"""""""
 """""""""""""""""""""""
 
-" let g:rustfmt_autosave = 0
+let g:rustfmt_autosave = 1
 
 nnoremap <silent> <Leader>cr :Cargo run<CR>
 nnoremap <silent> <Leader>cc :Cargo check<CR>
