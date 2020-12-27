@@ -20,66 +20,59 @@ Plug 'jiangmiao/auto-pairs'
 " replace space by dot ( . )
 Plug 'Yggdroot/indentLine'
 " multi cursor
-Plug 'mg979/vim-visual-multi'
-" easy motions
-Plug 'easymotion/vim-easymotion'
-" change into {} ()
+Plug 'terryma/vim-multiple-cursors'
+" change into {} () when we are not inside
 Plug 'wellle/targets.vim'
-" preview markdown
-Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
 " Prettier
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-" color syntax with jsx
-Plug 'mxw/vim-jsx'
 
-"""""""""""""
-""" THEME """
-"""""""""""""
+""""""""""""""
+"""" THEME """
+""""""""""""""
 
 " Plug 'dikiaap/minimalist'
 Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
 
-"""""""""""""
-"""" FZF """"
-"""""""""""""
+""""""""""""""
+""""" FZF """"
+""""""""""""""
 
 " fuzzy finder
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 
-""""""""""""""""""
-"""" Snippet """""
-""""""""""""""""""
+"""""""""""""""""""
+""""" Snippet """""
+"""""""""""""""""""
 
-" snippet engine
-Plug 'SirVer/ultisnips'
 " repos with all snippets i use. (snimMate and ultisnips)
 Plug 'honza/vim-snippets'
-" window with snippets in
-Plug 'ycm-core/YouCompleteMe'
+" snippet engine
+Plug 'SirVer/ultisnips'
 
-"""""""""""""""""""""
-"""" Typescript """""
-"""""""""""""""""""""
+""""""""""""""""""""""
+""""" Typescript """""
+""""""""""""""""""""""
 
 " lsp typescript
-Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
+"Plug 'leafgarland/typescript-vim'
+"Plug 'peitalin/vim-jsx-typescript'
+"Plug 'HerringtonDarkholme/yats.vim'
 
-""""""""""""""
-"""" Ale """""
-""""""""""""""
+"""""""""""""""
+""""" Ale """""
+"""""""""""""""
 
 " Check syntax in Vim asynchronously and fix files, with Language Server Protocol (LSP) support
 Plug 'dense-analysis/ale'
 
-"""""""""""""""
-"""" Rust """""
-"""""""""""""""
+""""""""""""""""
+""""" Rust """""
+""""""""""""""""
 
 " rust
-Plug 'rust-lang/rust.vim'
+"Plug 'rust-lang/rust.vim'
 
 call plug#end()
 
@@ -122,10 +115,10 @@ function! MoveOrCreateWindow(key) abort
   endif
 endfunction
 
-nnoremap <silent> <Leader>hh :call MoveOrCreateWindow('h')<CR>
-nnoremap <silent> <Leader>jj :call MoveOrCreateWindow('j')<CR>
-nnoremap <silent> <Leader>kk :call MoveOrCreateWindow('k')<CR>
-nnoremap <silent> <Leader>ll :call MoveOrCreateWindow('l')<CR>
+nnoremap <silent> <A-Left> :call MoveOrCreateWindow('h')<CR>
+nnoremap <silent> <A-Down> :call MoveOrCreateWindow('j')<CR>
+nnoremap <silent> <A-Up> :call MoveOrCreateWindow('k')<CR>
+nnoremap <silent> <A-Right> :call MoveOrCreateWindow('l')<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""
@@ -204,13 +197,7 @@ nnoremap <C-l> :Lines<Cr>
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
-"""""""""""""""""""""""
-"""""""" LSP """"""""""
-"""""""""""""""""""""""
-
-let g:lsp_diagnostics_enabled = 0
+let g:UltiSnipsJumpBackwardTrigger="<c-j>"
 
 """""""""""""""""""""""
 """""""" Ale """"""""""
@@ -220,72 +207,47 @@ nnoremap gd :ALEGoToDefinition<CR>
 nnoremap gf :ALEGoToDefinition -tab<CR>
 
 let g:ale_completion_enabled = 1
-let g:ale_completion_autoimport = 1
 
 let g:ale_fixers = {
       \   'javascript': ['prettier', 'eslint'],
-      \   'typescript': ['prettier', 'eslint'],
+      \   'typescript': ['prettier', 'eslint', 'tslint'],
       \   'rust': ['rustfmt'],
       \}
 let g:ale_linters = {
       \   'javascript': ['eslint', 'tsserver'],
-      \   'typescript': ['eslint', 'tsserver'],
+      \   'typescript': ['eslint', 'tsserver', 'tslint'],
       \   'rust': ['rls'],
       \}
 
-"""""""""""""""""""""""
-""" YouCompleteme """""
-"""""""""""""""""""""""
 
-" make YCM compatible with UltiSnips
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-
-" close top preview with informations of methods etc..
-let g:ycm_autoclose_preview_window_after_insertion = 1
-
-
-" popup with documentation 
-au! CursorHold *.[ch] ++nested call PreviewWord()
-func PreviewWord()
-  if &previewwindow                  " don't do this in the preview window
-    return
+" use down arrow instead ctrl-n
+function! AleCompletionDown() abort
+  " Use the default CTRL-N in completion menus
+  if pumvisible()
+    return "\<C-n>"
   endif
-  let w = expand("<cword>")          " get the word under cursor
-  if w =~ '\a'                       " if the word contains a letter
 
-    " Delete any existing highlight before showing another tag
-    silent! wincmd P                 " jump to preview window
-    if &previewwindow                        " if we really get there...                                                                                                                   
-      match none                     " delete existing highlight
-      wincmd p                       " back to old window
-    endif
+  " Exit and re-enter insert mode, and use insert completion
+  return "\<C-c>a\<C-n>"
+endfunction
 
-    " Try displaying a matching tag for the word under the cursor
-    try
-      exe "ptag " . w
-    catch
-      return
-    endtry
-
-    silent! wincmd P                 " jump to preview window
-    if &previewwindow                " if we really get there...
-      if has("folding")
-        silent! .foldopen            " don't want a closed fold
-      endif
-      call search("$", "b")          " to end of previous line
-      let w = substitute(w, '\\', '\\\\', "")                                                                                                                                              
-      call search('\<\V' . w . '\>') " position cursor on match
-      " Add a match highlight to the word at this position
-      hi previewWord term=bold ctermbg=green guibg=green
-      exe 'match previewWord "\%' . line(".") . 'l\%' . col(".") . 'c\k*"'
-      wincmd p                       " back to old window
-    endif
+" use up arrow instead ctrl-p
+function! AleCompletionUp() abort
+  " Use the default CTRL-N in completion menus
+  if pumvisible()
+    return "\<C-p>"
   endif
-endfun
 
-" delay of popup
-set updatetime=500
+  " Exit and re-enter insert mode, and use insert completion
+  return "\<C-c>a\<C-p>"
+endfunction
+
+inoremap <silent> <Down> <C-R>=AleCompletionDown()<CR>
+inoremap <silent> <Up> <C-R>=AleCompletionUp()<CR>
+
+set completeopt=menu,menuone,preview,noselect,noinsert
+" desabled element info into airbar
+let g:ale_hover_cursor = 0
 
 """""""""""""""""""""""
 """"" typescript """"""
@@ -295,55 +257,22 @@ set updatetime=500
 autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
 
 """""""""""""""""""""""
-""""" React Color """""
-"""""""""""""""""""""""
-
-" dark red
-" hi tsxTagName guifg=#E06C75
-" hi tsxComponentName guifg=#E06C75
-" hi tsxCloseComponentName guifg=#E06C75
-
-" orange
-" hi tsxCloseString guifg=#F99575
-" hi tsxCloseTag guifg=#F99575
-" hi tsxCloseTagName guifg=#F99575
-" hi tsxAttributeBraces guifg=#F99575
-" hi tsxEqual guifg=#F99575
-
-" yellow
-" hi tsxAttrib guifg=#F8BD7F cterm=italic
-
-" light-grey
-" hi tsxTypeBraces guifg=#999999
-" dark-grey
-" hi tsxTypes guifg=#666666
-
-" hi ReactState guifg=#C176A7
-" hi ReactProps guifg=#D19A66
-" hi ApolloGraphQL guifg=#CB886B
-" hi Events ctermfg=204 guifg=#56B6C2
-" hi ReduxKeywords ctermfg=204 guifg=#C678DD
-" hi ReduxHooksKeywords ctermfg=204 guifg=#C176A7
-" hi WebBrowser ctermfg=204 guifg=#56B6C2
-" hi ReactLifeCycleMethods ctermfg=204 guifg=#D19A66
-
-"""""""""""""""""""""""
 """""" prettier """""""
 """""""""""""""""""""""
 
 let g:prettier#autoformat = 1
 let g:prettier#autoformat_require_pragma = 0
 " dont open bottom window when parser error triggered
-" let g:prettier#quickfix_enabled = 0
-
-autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.vue,*.yaml,*.html PrettierAsync
+let g:prettier#quickfix_enabled = 0
+" forced async prettier
+let g:prettier#exec_cmd_async = 1
 
 """""""""""""""""""""""
 """"""" rust """"""""""
 """""""""""""""""""""""
 
-let g:rustfmt_autosave = 1
+" let g:rustfmt_autosave = 1
 
-nnoremap <silent> <Leader>cr :Cargo run<CR>
-nnoremap <silent> <Leader>cc :Cargo check<CR>
-nnoremap <silent> <Leader>cb :Cargo build<CR>
+" nnoremap <silent> <Leader>cr :Cargo run<CR>
+" nnoremap <silent> <Leader>cc :Cargo check<CR>
+" nnoremap <silent> <Leader>cb :Cargo build<CR>

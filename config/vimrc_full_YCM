@@ -47,11 +47,11 @@ Plug 'junegunn/fzf.vim'
 """""""""""""""""""
 
 " repos with all snippets i use. (snimMate and ultisnips)
-" Plug 'honza/vim-snippets'
+Plug 'honza/vim-snippets'
 " snippet engine
-" Plug 'SirVer/ultisnips'
+Plug 'SirVer/ultisnips'
 " window with snippets in
-"Plug 'ycm-core/YouCompleteMe'
+Plug 'ycm-core/YouCompleteMe'
 
 """"""""""""""""""""""
 """"" Typescript """""
@@ -61,13 +61,6 @@ Plug 'junegunn/fzf.vim'
 "Plug 'leafgarland/typescript-vim'
 "Plug 'peitalin/vim-jsx-typescript'
 "Plug 'HerringtonDarkholme/yats.vim'
-
-"""""""""""""""
-""""" Ale """""
-"""""""""""""""
-
-" Check syntax in Vim asynchronously and fix files, with Language Server Protocol (LSP) support
-Plug 'dense-analysis/ale'
 
 """"""""""""""""
 """"" Rust """""
@@ -159,8 +152,8 @@ set encoding=utf-8
 set undofile
 " Save folder undo history
 set undodir=~/.vim/undodir
-" active balloon
-set ballooneval
+" delay of popup
+set updatetime=200
 
 """""""""""""""""""""""
 """ theme and color """
@@ -199,117 +192,22 @@ nnoremap <C-l> :Lines<Cr>
 """""""""""""""""""""""
 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-" let g:UltiSnipsExpandTrigger="<tab>"
-" let g:UltiSnipsJumpForwardTrigger="<tab>"
-" let g:UltiSnipsJumpBackwardTrigger="<c-j>"
-
-"""""""""""""""""""""""
-"""""""" LSP """"""""""
-"""""""""""""""""""""""
-
-" let g:lsp_diagnostics_enabled = 0
-
-"""""""""""""""""""""""
-"""""""" Ale """"""""""
-"""""""""""""""""""""""
-
-nnoremap gd :ALEGoToDefinition<CR>
-nnoremap gf :ALEGoToDefinition -tab<CR>
-
-let g:ale_completion_enabled = 1
-
-let g:ale_fixers = {
-      \   'javascript': ['prettier', 'eslint'],
-      \   'typescript': ['prettier', 'eslint', 'tslint'],
-      \   'rust': ['rustfmt'],
-      \}
-let g:ale_linters = {
-      \   'javascript': ['eslint', 'tsserver'],
-      \   'typescript': ['eslint', 'tsserver', 'tslint'],
-      \   'rust': ['rls'],
-      \}
-
-
-" use down arrow instead ctrl-n
-function! AleCompletionDown() abort
-  " Use the default CTRL-N in completion menus
-  if pumvisible()
-    return "\<C-n>"
-  endif
-
-  " Exit and re-enter insert mode, and use insert completion
-  return "\<C-c>a\<C-n>"
-endfunction
-
-" use up arrow instead ctrl-p
-function! AleCompletionUp() abort
-  " Use the default CTRL-N in completion menus
-  if pumvisible()
-    return "\<C-p>"
-  endif
-
-  " Exit and re-enter insert mode, and use insert completion
-  return "\<C-c>a\<C-p>"
-endfunction
-
-inoremap <silent> <Down> <C-R>=AleCompletionDown()<CR>
-inoremap <silent> <Up> <C-R>=AleCompletionUp()<CR>
-
-set completeopt=menu,menuone,preview,noselect,noinsert
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<c-j>"
 
 """""""""""""""""""""""
 """ YouCompleteme """""
 """""""""""""""""""""""
 
+" disable snippet list
+let g:ycm_min_num_of_chars_for_completion = 99
+" autoclose top preview when leave insert mode
+let g:ycm_autoclose_preview_window_after_insertion = 1
+
 " make YCM compatible with UltiSnips
-" let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-" let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-
-" close top preview with informations of methods etc..
-" let g:ycm_autoclose_preview_window_after_insertion = 1
-
-
-" popup with documentation 
-" au! CursorHold *.[ch] ++nested call PreviewWord()
-" func PreviewWord()
-"   if &previewwindow                  " don't do this in the preview window
-"     return
-"   endif
-"   let w = expand("<cword>")          " get the word under cursor
-"   if w =~ '\a'                       " if the word contains a letter
-
-"     " Delete any existing highlight before showing another tag
-"     silent! wincmd P                 " jump to preview window
-"     if &previewwindow                        " if we really get there...                                                                                                                   
-"       match none                     " delete existing highlight
-"       wincmd p                       " back to old window
-"     endif
-
-"     " Try displaying a matching tag for the word under the cursor
-"     try
-"       exe "ptag " . w
-"     catch
-"       return
-"     endtry
-
-"     silent! wincmd P                 " jump to preview window
-"     if &previewwindow                " if we really get there...
-"       if has("folding")
-"         silent! .foldopen            " don't want a closed fold
-"       endif
-"       call search("$", "b")          " to end of previous line
-"       let w = substitute(w, '\\', '\\\\', "")                                                                                                                                              
-"       call search('\<\V' . w . '\>') " position cursor on match
-"       " Add a match highlight to the word at this position
-"       hi previewWord term=bold ctermbg=green guibg=green
-"       exe 'match previewWord "\%' . line(".") . 'l\%' . col(".") . 'c\k*"'
-"       wincmd p                       " back to old window
-"     endif
-"   endif
-" endfun
-
-" delay of popup
-" set updatetime=500
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 
 """""""""""""""""""""""
 """"" typescript """"""
@@ -317,7 +215,6 @@ set completeopt=menu,menuone,preview,noselect,noinsert
 
 " set filetypes as typescript.tsx
 autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
-
 
 """""""""""""""""""""""
 """""" prettier """""""
