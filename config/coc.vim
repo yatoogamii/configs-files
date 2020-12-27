@@ -20,38 +20,65 @@ Plug 'jiangmiao/auto-pairs'
 " replace space by dot ( . )
 Plug 'Yggdroot/indentLine'
 " multi cursor
-Plug 'mg979/vim-visual-multi'
-" easy motions
-Plug 'easymotion/vim-easymotion'
-" change into {} ()
+Plug 'terryma/vim-multiple-cursors'
+" change into {} () when we are not inside
 Plug 'wellle/targets.vim'
-" preview markdown
-Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
 " Prettier
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-" color syntax with jsx
-Plug 'mxw/vim-jsx'
 
-"""""""""""""
-""" THEME """
-"""""""""""""
+""""""""""""""
+"""" THEME """
+""""""""""""""
 
 " Plug 'dikiaap/minimalist'
 Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
 
-"""""""""""""
-"""" FZF """"
-"""""""""""""
+""""""""""""""
+""""" FZF """"
+""""""""""""""
 
 " fuzzy finder
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 
+"""""""""""""""""""
+""""" Snippet """""
+"""""""""""""""""""
+
+" repos with all snippets i use. (snimMate and ultisnips)
+Plug 'honza/vim-snippets'
+" snippet engine
+Plug 'SirVer/ultisnips'
+
+""""""""""""""""""""""
+""""" Typescript """""
+""""""""""""""""""""""
+
+" lsp typescript
+"Plug 'leafgarland/typescript-vim'
+"Plug 'peitalin/vim-jsx-typescript'
+"Plug 'HerringtonDarkholme/yats.vim'
+
 """""""""""""""
-"""" COC """"""
+""""" Ale """""
 """""""""""""""
+
+" Check syntax in Vim asynchronously and fix files, with Language Server Protocol (LSP) support
+Plug 'dense-analysis/ale'
+
+"""""""""""""""
+""""" COC """""
+"""""""""""""""
+
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+""""""""""""""""
+""""" Rust """""
+""""""""""""""""
+
+" rust
+"Plug 'rust-lang/rust.vim'
 
 call plug#end()
 
@@ -94,10 +121,10 @@ function! MoveOrCreateWindow(key) abort
   endif
 endfunction
 
-nnoremap <silent> <Leader>hh :call MoveOrCreateWindow('h')<CR>
-nnoremap <silent> <Leader>jj :call MoveOrCreateWindow('j')<CR>
-nnoremap <silent> <Leader>kk :call MoveOrCreateWindow('k')<CR>
-nnoremap <silent> <Leader>ll :call MoveOrCreateWindow('l')<CR>
+nnoremap <silent> <A-Left> :call MoveOrCreateWindow('h')<CR>
+nnoremap <silent> <A-Down> :call MoveOrCreateWindow('j')<CR>
+nnoremap <silent> <A-Up> :call MoveOrCreateWindow('k')<CR>
+nnoremap <silent> <A-Right> :call MoveOrCreateWindow('l')<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""
@@ -136,6 +163,7 @@ set encoding=utf-8
 set undofile
 " Save folder undo history
 set undodir=~/.vim/undodir
+set updatetime=200
 
 """""""""""""""""""""""
 """ theme and color """
@@ -147,16 +175,6 @@ colorscheme gruvbox
 " let g:airline_theme='minimalist'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-
-"""""""""""""""""""""""
-"""""""" COC  """""""""
-"""""""""""""""""""""""
-
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gt <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
 
 """""""""""""""""""""""
 """"" indentLine  """""
@@ -180,37 +198,83 @@ nnoremap <C-b> :Buffers<Cr>
 nnoremap <C-l> :Lines<Cr>
 
 """""""""""""""""""""""
-""""" React Color """""
+"""""" Ultisnips """"""
 """""""""""""""""""""""
 
-" dark red
-" hi tsxTagName guifg=#E06C75
-" hi tsxComponentName guifg=#E06C75
-" hi tsxCloseComponentName guifg=#E06C75
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<c-j>"
 
-" orange
-" hi tsxCloseString guifg=#F99575
-" hi tsxCloseTag guifg=#F99575
-" hi tsxCloseTagName guifg=#F99575
-" hi tsxAttributeBraces guifg=#F99575
-" hi tsxEqual guifg=#F99575
+"""""""""""""""""""""""
+"""""""" Ale """"""""""
+"""""""""""""""""""""""
 
-" yellow
-" hi tsxAttrib guifg=#F8BD7F cterm=italic
+nnoremap gd :ALEGoToDefinition<CR>
+nnoremap gf :ALEGoToDefinition -tab<CR>
 
-" light-grey
-" hi tsxTypeBraces guifg=#999999
-" dark-grey
-" hi tsxTypes guifg=#666666
+let g:ale_completion_enabled = 0
+let g:ale_disable_lsp = 1
 
-" hi ReactState guifg=#C176A7
-" hi ReactProps guifg=#D19A66
-" hi ApolloGraphQL guifg=#CB886B
-" hi Events ctermfg=204 guifg=#56B6C2
-" hi ReduxKeywords ctermfg=204 guifg=#C678DD
-" hi ReduxHooksKeywords ctermfg=204 guifg=#C176A7
-" hi WebBrowser ctermfg=204 guifg=#56B6C2
-" hi ReactLifeCycleMethods ctermfg=204 guifg=#D19A66
+let g:ale_fixers = {
+      \   'javascript': ['prettier', 'eslint'],
+      \   'typescript': ['prettier', 'eslint', 'tslint'],
+      \   'rust': ['rustfmt'],
+      \}
+let g:ale_linters = {
+      \   'javascript': ['eslint', 'tsserver'],
+      \   'typescript': ['eslint', 'tsserver', 'tslint'],
+      \   'rust': ['rls'],
+      \}
+
+
+" use down arrow instead ctrl-n
+function! AleCompletionDown() abort
+  " Use the default CTRL-N in completion menus
+  if pumvisible()
+    return "\<C-n>"
+  endif
+
+  " Exit and re-enter insert mode, and use insert completion
+  return "\<C-c>a\<C-n>"
+endfunction
+
+" use up arrow instead ctrl-p
+function! AleCompletionUp() abort
+  " Use the default CTRL-N in completion menus
+  if pumvisible()
+    return "\<C-p>"
+  endif
+
+  " Exit and re-enter insert mode, and use insert completion
+  return "\<C-c>a\<C-p>"
+endfunction
+
+inoremap <silent> <Down> <C-R>=AleCompletionDown()<CR>
+inoremap <silent> <Up> <C-R>=AleCompletionUp()<CR>
+
+set completeopt=menu,menuone,preview,noselect,noinsert
+" desabled element info into airbar
+let g:ale_hover_cursor = 0
+
+"""""""""""""""""""""""
+"""""""" COC """"""""""
+"""""""""""""""""""""""
+
+" goto
+" nmap <silent> gd <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" trigger completion
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+      \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+"""""""""""""""""""""""
+""""" typescript """"""
+"""""""""""""""""""""""
+
+" set filetypes as typescript.tsx
+autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
 
 """""""""""""""""""""""
 """""" prettier """""""
@@ -219,16 +283,16 @@ nnoremap <C-l> :Lines<Cr>
 let g:prettier#autoformat = 1
 let g:prettier#autoformat_require_pragma = 0
 " dont open bottom window when parser error triggered
-" let g:prettier#quickfix_enabled = 0
-
-autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.vue,*.yaml,*.html PrettierAsync
+let g:prettier#quickfix_enabled = 0
+" forced async prettier
+let g:prettier#exec_cmd_async = 1
 
 """""""""""""""""""""""
 """"""" rust """"""""""
 """""""""""""""""""""""
 
-let g:rustfmt_autosave = 1
+" let g:rustfmt_autosave = 1
 
-nnoremap <silent> <Leader>cr :Cargo run<CR>
-nnoremap <silent> <Leader>cc :Cargo check<CR>
-nnoremap <silent> <Leader>cb :Cargo build<CR>
+" nnoremap <silent> <Leader>cr :Cargo run<CR>
+" nnoremap <silent> <Leader>cc :Cargo check<CR>
+" nnoremap <silent> <Leader>cb :Cargo build<CR>

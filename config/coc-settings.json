@@ -1,0 +1,5 @@
+{
+  "diagnostic.displayByAle": true,
+  "tsserver.log": "verbose",
+  "tsserver.trace.server": "verbose"
+}
