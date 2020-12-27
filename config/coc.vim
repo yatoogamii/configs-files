@@ -73,6 +73,7 @@ Plug 'dense-analysis/ale'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+
 """"""""""""""""
 """"" Rust """""
 """"""""""""""""
@@ -164,6 +165,7 @@ set undofile
 " Save folder undo history
 set undodir=~/.vim/undodir
 set updatetime=200
+set cmdheight=2
 
 """""""""""""""""""""""
 """ theme and color """
@@ -261,6 +263,11 @@ let g:ale_hover_cursor = 0
 """""""" COC """"""""""
 """""""""""""""""""""""
 
+let g:coc_global_extensions = [
+      \ 'coc-tsserver',
+      \ 'coc-json',
+      \ 'coc-eslint',
+      \ ]
 " goto
 " nmap <silent> gd <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
@@ -268,6 +275,9 @@ nmap <silent> gr <Plug>(coc-references)
 " trigger completion
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
       \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+nnoremap <silent> K :call CocAction('doHover')<CR>
+
 
 """""""""""""""""""""""
 """"" typescript """"""
