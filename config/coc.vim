@@ -73,7 +73,6 @@ Plug 'dense-analysis/ale'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-
 """"""""""""""""
 """"" Rust """""
 """"""""""""""""
@@ -268,6 +267,7 @@ let g:coc_global_extensions = [
       \ 'coc-json',
       \ 'coc-eslint',
       \ ]
+
 " goto
 " nmap <silent> gd <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
@@ -276,8 +276,7 @@ nmap <silent> gr <Plug>(coc-references)
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
       \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-nnoremap <silent> K :call CocAction('doHover')<CR>
-
+ autocmd CursorHold * silent call CocActionAsync('doHover')
 
 """""""""""""""""""""""
 """"" typescript """"""
