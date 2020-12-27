@@ -1,5 +1,6 @@
 {
   "diagnostic.displayByAle": true,
   "tsserver.log": "verbose",
-  "tsserver.trace.server": "verbose"
+  "tsserver.trace.server": "verbose",
+  "coc.preferences.messageLevel": "error"
 }
