@@ -9,6 +9,8 @@ call plug#begin()
 
 " surround word or line with what you want
 Plug 'tpope/vim-surround'
+" show diff with current file into left gutter
+Plug 'airblade/vim-gitgutter'
 " use dot '.' for repeat last action
 Plug 'tpope/vim-repeat'
 " snippets html / css tringer with ctrl+y+,
@@ -163,7 +165,7 @@ set encoding=utf-8
 set undofile
 " Save folder undo history
 set undodir=~/.vim/undodir
-set updatetime=200
+set updatetime=1200
 set cmdheight=2
 
 """""""""""""""""""""""
@@ -276,7 +278,21 @@ nmap <silent> gr <Plug>(coc-references)
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
       \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
- autocmd CursorHold * silent call CocActionAsync('doHover')
+"show documentation when Hover
+" autocmd CursorHold * silent call CocActionAsync('doHover')
+nnoremap <silent> <F2> :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+nnoremap <silent> <F3> :CocAction<CR>
 
 """""""""""""""""""""""
 """"" typescript """"""
