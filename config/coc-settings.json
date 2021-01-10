@@ -1,6 +1,16 @@
 {
-  "diagnostic.displayByAle": true,
+  "tsserver.enable": true,
+  "tsserver.enableJavascript": true,
+  "tsserver.tsdk": "/usr/bin/tsserver",
   "tsserver.log": "verbose",
   "tsserver.trace.server": "verbose",
-  "coc.preferences.messageLevel": "error"
+  "eslint.run": "onSave",
+  "eslint.trace.server": "verbose",
+  "coc.preferences.messageLevel": "error",
+  "coc.preferences.formatOnSaveFiletypes": [
+    "typescript",
+    "javascript",
+    "css",
+    "json"
+  ]
 }
