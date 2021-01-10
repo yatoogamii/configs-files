@@ -25,14 +25,11 @@ Plug 'Yggdroot/indentLine'
 Plug 'terryma/vim-multiple-cursors'
 " change into {} () when we are not inside
 Plug 'wellle/targets.vim'
-" Prettier
-Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 
 """"""""""""""
 """" THEME """
 """"""""""""""
 
-" Plug 'dikiaap/minimalist'
 Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
 
@@ -53,34 +50,11 @@ Plug 'honza/vim-snippets'
 " snippet engine
 Plug 'SirVer/ultisnips'
 
-""""""""""""""""""""""
-""""" Typescript """""
-""""""""""""""""""""""
-
-" lsp typescript
-"Plug 'leafgarland/typescript-vim'
-"Plug 'peitalin/vim-jsx-typescript'
-"Plug 'HerringtonDarkholme/yats.vim'
-
-"""""""""""""""
-""""" Ale """""
-"""""""""""""""
-
-" Check syntax in Vim asynchronously and fix files, with Language Server Protocol (LSP) support
-Plug 'dense-analysis/ale'
-
 """""""""""""""
 """"" COC """""
 """""""""""""""
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-""""""""""""""""
-""""" Rust """""
-""""""""""""""""
-
-" rust
-"Plug 'rust-lang/rust.vim'
 
 call plug#end()
 
@@ -165,8 +139,6 @@ set encoding=utf-8
 set undofile
 " Save folder undo history
 set undodir=~/.vim/undodir
-set updatetime=1200
-set cmdheight=2
 
 """""""""""""""""""""""
 """ theme and color """
@@ -175,7 +147,6 @@ set termguicolors
 set t_Co=256
 set background=dark
 colorscheme gruvbox
-" let g:airline_theme='minimalist'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 
@@ -210,71 +181,34 @@ let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<c-j>"
 
 """""""""""""""""""""""
-"""""""" Ale """"""""""
-"""""""""""""""""""""""
-
-nnoremap gd :ALEGoToDefinition<CR>
-nnoremap gf :ALEGoToDefinition -tab<CR>
-
-let g:ale_completion_enabled = 0
-let g:ale_disable_lsp = 1
-
-let g:ale_fixers = {
-      \   'javascript': ['prettier', 'eslint'],
-      \   'typescript': ['prettier', 'eslint', 'tslint'],
-      \   'rust': ['rustfmt'],
-      \}
-let g:ale_linters = {
-      \   'javascript': ['eslint', 'tsserver'],
-      \   'typescript': ['eslint', 'tsserver', 'tslint'],
-      \   'rust': ['rls'],
-      \}
-
-
-" use down arrow instead ctrl-n
-function! AleCompletionDown() abort
-  " Use the default CTRL-N in completion menus
-  if pumvisible()
-    return "\<C-n>"
-  endif
-
-  " Exit and re-enter insert mode, and use insert completion
-  return "\<C-c>a\<C-n>"
-endfunction
-
-" use up arrow instead ctrl-p
-function! AleCompletionUp() abort
-  " Use the default CTRL-N in completion menus
-  if pumvisible()
-    return "\<C-p>"
-  endif
-
-  " Exit and re-enter insert mode, and use insert completion
-  return "\<C-c>a\<C-p>"
-endfunction
-
-inoremap <silent> <Down> <C-R>=AleCompletionDown()<CR>
-inoremap <silent> <Up> <C-R>=AleCompletionUp()<CR>
-
-set completeopt=menu,menuone,preview,noselect,noinsert
-" desabled element info into airbar
-let g:ale_hover_cursor = 0
-
-"""""""""""""""""""""""
 """""""" COC """"""""""
 """""""""""""""""""""""
+"
+" TextEdit might fail if hidden is not set.
+set hidden
 
-let g:coc_global_extensions = [
-      \ 'coc-tsserver',
-      \ 'coc-json',
-      \ 'coc-eslint',
-      \ ]
+" Some servers have issues with backup files, see #649.
+set nobackup
+set nowritebackup
+
+" Give more space for displaying messages.
+set cmdheight=2
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
+let g:coc_global_extensions = [ 'coc-tsserver', 'coc-eslint', 'coc-tslint-plugin', 'coc-json', 'coc-prettier']
 
 " goto
 " nmap <silent> gd <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-" trigger completion
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
       \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
@@ -294,30 +228,48 @@ endfunction
 
 nnoremap <silent> <F3> :CocAction<CR>
 
+" use down arrow instead ctrl-n
+function! CocCompletionDown() abort
+  " Use the default CTRL-N in completion menus
+  if pumvisible()
+    return "\<C-n>"
+  endif
+
+  " Exit and re-enter insert mode, and use insert completion
+  return "\<C-c>a\<C-n>"
+endfunction
+
+" use up arrow instead ctrl-p
+function! CocCompletionUp() abort
+  " Use the default CTRL-N in completion menus
+  if pumvisible()
+    return "\<C-p>"
+  endif
+
+  " Exit and re-enter insert mode, and use insert completion
+  return "\<C-c>a\<C-p>"
+endfunction
+
+inoremap <silent> <Down> <C-R>=CocCompletionDown()<CR>
+inoremap <silent> <Up> <C-R>=CocCompletionUp()<CR>
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [ <Plug>(coc-diagnostic-prev)
+nmap <silent> ] <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Remap keys for applying codeAction to the current buffer.
+nmap <F3> <Plug>(coc-codeaction)
+
 """""""""""""""""""""""
 """"" typescript """"""
 """""""""""""""""""""""
 
 " set filetypes as typescript.tsx
 autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
-
-"""""""""""""""""""""""
-"""""" prettier """""""
-"""""""""""""""""""""""
-
-let g:prettier#autoformat = 1
-let g:prettier#autoformat_require_pragma = 0
-" dont open bottom window when parser error triggered
-let g:prettier#quickfix_enabled = 0
-" forced async prettier
-let g:prettier#exec_cmd_async = 1
-
-"""""""""""""""""""""""
-""""""" rust """"""""""
-"""""""""""""""""""""""
-
-" let g:rustfmt_autosave = 1
-
-" nnoremap <silent> <Leader>cr :Cargo run<CR>
-" nnoremap <silent> <Leader>cc :Cargo check<CR>
-" nnoremap <silent> <Leader>cb :Cargo build<CR>
