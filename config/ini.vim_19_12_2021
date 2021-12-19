@@ -1,0 +1,249 @@
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""Plugin"""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+call plug#begin()
+
+"""""""""""""
+"""" MISC """
+"""""""""""""
+" surround word or line with what you want
+Plug 'tpope/vim-surround'
+" show diff with current file into left gutter
+Plug 'airblade/vim-gitgutter'
+" comment vim
+Plug 'tpope/vim-commentary'
+" auto pairs with ' " ( { [
+Plug 'jiangmiao/auto-pairs'
+" replace space by dot ( . )
+Plug 'Yggdroot/indentLine'
+" multi cursor
+Plug 'terryma/vim-multiple-cursors'
+" change into {} () when we are not inside
+Plug 'wellle/targets.vim'
+" emmet
+Plug 'mattn/emmet-vim'
+
+""""""""""""""
+"""" THEME """
+""""""""""""""
+
+Plug 'morhetz/gruvbox'
+Plug 'itchyny/lightline.vim'
+
+""""""""""""""
+""""" FZF """"
+""""""""""""""
+
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+
+""""""""""""""
+""""" COC """"
+""""""""""""""
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+"""""""""""""""""""""""""
+""""" Copilot GITHUB """"
+"""""""""""""""""""""""""
+
+Plug 'github/copilot.vim'
+
+call plug#end()
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""Remapp"""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" change leader
+let mapleader=","
+
+" use double ',' for exit insert mode
+imap ,, <esc>
+
+" Easy window movement and creation  https://vimrcfu.com/snippet/266
+" ALT + (Left)(Down)(Up)(Right)
+function! MoveOrCreateWindow(key) abort
+  let t:curwin = winnr()
+  exec "wincmd ".a:key
+  if (t:curwin == winnr())
+    if (match(a:key,'[jk]'))
+      wincmd v
+    else
+      wincmd s
+    endif
+    exec "wincmd ".a:key
+  endif
+endfunction
+
+nnoremap <silent> <A-Left> :call MoveOrCreateWindow('h')<CR>
+nnoremap <silent> <A-Down> :call MoveOrCreateWindow('j')<CR>
+nnoremap <silent> <A-Up> :call MoveOrCreateWindow('k')<CR>
+nnoremap <silent> <A-Right> :call MoveOrCreateWindow('l')<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""Command option""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" without I cant delete with space
+set backspace=indent,eol,start
+" set relative number colomn
+set relativenumber
+" set tab with 2 spaces
+set tabstop=2
+" tab with 2 spaces when use '>'
+set shiftwidth=2
+" convert space to tab
+set expandtab
+" page down with cursor
+set scrolloff=19
+" maintain undo history between sessions
+set undofile
+" save folder undo history
+set undodir=~/config/nvim/undodir
+" show command on the bottom right
+set showcmd
+" light on search and ignore case
+set incsearch
+set ignorecase
+" blink cursor line
+set cursorline
+" break line with "↳ " symbol
+let &showbreak ="↳ "
+" the encoding written to file
+set fileencodings+=utf-8
+" the encoding displayed
+set encoding=utf-8
+" don't keep the highlight on the search keyword
+set hls!
+
+" indent all file and go back where started editing.
+map <leader><leader>i mmgg=G`m
+
+"""""""""""""""""""""""
+""" theme and color """
+"""""""""""""""""""""""
+
+set termguicolors
+set t_Co=256
+colorscheme gruvbox
+let g:sonokai_enable_italic = 1
+let g:sonokai_disable_italic_comment = 1
+let g:lightline = {
+      \ 'colorscheme': 'gruvbox',
+      \}
+
+"""""""""""""""""""""""
+""""" indentLine  """""
+"""""""""""""""""""""""
+
+let g:indentLine_char = '·'
+"enable quote into json file
+let g:vim_json_conceal=0
+
+"""""""""""""
+"""" FZF """"
+"""""""""""""
+
+let g:fzf_action = {
+      \ 'ctrl-t': 'tab split',
+      \ 'ctrl-x': 'split',
+      \ 'ctrl-v': 'vsplit' }
+
+let g:fzf_layout = { 'down': '50%' }
+
+let g:fzf_preview_window = ['right:50%']
+
+" overide the default options/source to fzf Files
+command! -bang -nargs=? -complete=dir Files
+      \ call fzf#vim#files(<q-args>, 
+      \ {'options': [
+      \ '--preview', 'bat --style=numbers --color=always --line-range :500 {}',
+      \ '--reverse',
+      \ '--header', '[ripgrep] search on files',
+      \ ],
+      \ 'source': 'rg --files --hidden -g !node_modules'}, <bang>0)
+
+" overide the default options/source to fzf Rg
+command! -bang -nargs=* Rg
+      \ call fzf#vim#grep(
+      \   'rg --column --line-number --no-heading --color=always -g !node_modules --smart-case -- '.shellescape(<q-args>), 1,
+      \   fzf#vim#with_preview({'options': [
+      \ '--preview', 'bat --style=numbers --color=always --line-range :500 {}',
+      \ '--reverse',
+      \ '--header', '[ripgrep] search on occurences',
+      \]}), <bang>0)
+
+
+nnoremap <c-f> :Files<CR>
+nnoremap <c-i> :Rg<CR>
+
+"""""""""""""""""""""""
+""""" typescript """"""
+"""""""""""""""""""""""
+
+" set filetypes as typescript.tsx
+autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
+
+""""""""""""""""
+""""" COC """"""
+""""""""""""""""
+
+" TextEdit might fail if hidden is not set.
+set hidden
+
+" Some servers have issues with backup files, see #649.
+set nobackup
+set nowritebackup
+
+" Give more space for displaying messages.
+set cmdheight=2
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
+"show documentation when Hover
+" autocmd CursorHold * silent call CocActionAsync('doHover')
+nnoremap <silent> <F2> :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+nnoremap <silent> <F3> :CocAction<CR>
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> <F7> <Plug>(coc-diagnostic-prev)
+nmap <silent> <F8> <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" snippets
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
+
